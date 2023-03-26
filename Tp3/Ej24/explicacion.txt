@@ -1,0 +1,8 @@
+Lo que sucede es que al comparar un float con un 0.1, al estar trabajando con numeros decimales, el resultado de decir:
+a = 0.1; puede resultar en que "a" en realidad valga 0.10000000001 o 0.099999999999999 por que son decimales infinitos.
+
+Para hacerlo correctamente, no se debe comparar un decimal con otro decimal sino crear una variable asi:
+
+#define EPSILON 0.99999
+
+y probar si (a>EPSILON). Esa es la unica manera que igualmente puede traer problemas pero no hay problemas

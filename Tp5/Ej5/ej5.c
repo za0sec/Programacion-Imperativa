@@ -33,7 +33,7 @@ int main(){
   double a = getdouble("Ingresa un numero (Cualquier tipo de numero): ");
   int b = getint("elevado a? (Numero entero) ");
 
-  printf("%f", potencia(a, b));
+  printf("%f\n", potencia(a, b));
   
   return 0;
 

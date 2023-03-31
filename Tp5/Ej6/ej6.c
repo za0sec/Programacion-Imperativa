@@ -1,14 +1,18 @@
 #include <stdio.h>
+#include "../../libreria/getnum.h"
+#define DIFFMAY 'a'-'A'
+#define DIFFCIRC 'z'-'a'
 
 int toUp(int character){
-
-  return character -= ' ';
+  
+  if (  )
+  return character -= DIFFMAY;
   
 }
 
 int toLow(int character){
 
-  return character += ' ';
+  return character += DIFFMAY;
 
 }
 
@@ -22,7 +26,7 @@ int nextLetter(int character){
 
   if ( character == 'z' || character == 'Z' ){
 
-    return character -= 25;
+    return character -= DIFFCIRC;
 
   }else{
 
@@ -32,40 +36,55 @@ int nextLetter(int character){
 
 }
 
+int options(){
+
+  int selection;
+
+  do{
+    selection = getint("\nSeleccione una de las siguientes opciones:\n\n-Convertir de mayúscula a minúscula (1).\
+    \n-Convertir de minúscula a mayúscula (2).\n-Imprimir el carácter siguiente (3).\
+    \n-Imprimir la siguiente letra en forma circular (4)\n");
+
+  }
+  while (selection != 1 && selection != 2 && selection != 3 && selection != 4);
+
+
+  return selection;
+
+}
+
 
 
 int main(){
 
   printf("Ingrese un caracter: ");
-  int character = getchar(), selection = getchar();
-  
+  int character = getchar();
 
-  do{
-    printf("\nSeleccione una de las siguientes opciones:\n\n-Convertir de mayúscula a minúscula (a).\
-    \n-Convertir de minúscula a mayúscula (b).\n-Imprimir el carácter siguiente (c).\
-    \n-Imprimir la siguiente letra en forma circular (d)\n");
-    selection = getchar();
+  int selection = options();
 
-  }
-  while (selection != 'a' && selection != 'b' && selection != 'c' && selection != 'd');
-
-  if ( selection == 'a' ){
+   if ( selection == 1 && (character <='Z' && character >= 'A')){
 
     printf("Tu caracter es: %c\n", toLow(character));
 
-  }else if ( selection == 'b' ){
+  }else if ( selection == 2 && (character <='z' && character >= 'a') ){
     
     printf("Tu caracter es: %c\n", toUp(character));
 
-  }else if ( selection == 'c' ){
+  }else if ( selection == 3 ){
     
     printf("Tu caracter es: %c\n", nextCharacter(character));
 
-  }else{
+  }else if ( selection == 4 && ((character <='z' && character >= 'a') || (character <='Z' && character >= 'A') )){
 
     printf("Tu caracter es: %c\n", nextLetter(character));
+
+  }else{
+
+    puts("Opcion Incorrecta");
 
   }
 
   return 0;
+  
 }
+

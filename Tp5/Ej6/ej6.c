@@ -3,56 +3,67 @@
 #define DIFFMAY 'a'-'A'
 #define DIFFCIRC 'z'-'a'
 
-int toUp(int character){
+int toUp(int ch){
   
-  if (  )
-  return character -= DIFFMAY;
+  if ( ch <= 'z' && ch >= 'a' ){
   
-}
-
-int toLow(int character){
-
-  return character += DIFFMAY;
-
-}
-
-int nextCharacter(int character){
-
-  return character += 1;
-
-}
-
-int nextLetter(int character){
-
-  if ( character == 'z' || character == 'Z' ){
-
-    return character -= DIFFCIRC;
-
+    return ch -= DIFFMAY;
+  
   }else{
-
-   return character += 1;
+    
+    return ch;
+     
 
   }
+}
+
+int toLow(int ch){
+
+  if ( ch <='Z' && ch >= 'A' ){
+
+    return ch += DIFFMAY;
+  
+  }else{
+
+    return ch;
+    
+
+  }
+
+}
+
+int nextCharacter(int ch){
+
+  return ch += 1;
+
+}
+
+int nextLetter(int ch){
+
+  if ( ch == 'z' || ch == 'Z' ){
+
+    return ch -= DIFFCIRC;
+
+  }
+
+   return ( (ch < 'z' && ch >= 'a') || (ch < 'Z' && ch >= 'A') ) ? ch += 1 : ch;
+
 
 }
 
 int options(){
 
-  int selection;
-
-  do{
-    selection = getint("\nSeleccione una de las siguientes opciones:\n\n-Convertir de mayúscula a minúscula (1).\
+    
+    int selection = getint("\nSeleccione una de las siguientes opciones:\n\n-Convertir de mayúscula a minúscula (1).\
     \n-Convertir de minúscula a mayúscula (2).\n-Imprimir el carácter siguiente (3).\
     \n-Imprimir la siguiente letra en forma circular (4)\n");
 
-  }
-  while (selection != 1 && selection != 2 && selection != 3 && selection != 4);
+
 
 
   return selection;
 
 }
-
 
 
 int main(){
@@ -62,28 +73,20 @@ int main(){
 
   int selection = options();
 
-   if ( selection == 1 && (character <='Z' && character >= 'A')){
-
-    printf("Tu caracter es: %c\n", toLow(character));
-
-  }else if ( selection == 2 && (character <='z' && character >= 'a') ){
-    
-    printf("Tu caracter es: %c\n", toUp(character));
-
-  }else if ( selection == 3 ){
-    
-    printf("Tu caracter es: %c\n", nextCharacter(character));
-
-  }else if ( selection == 4 && ((character <='z' && character >= 'a') || (character <='Z' && character >= 'A') )){
-
-    printf("Tu caracter es: %c\n", nextLetter(character));
-
-  }else{
-
-    puts("Opcion Incorrecta");
-
+  switch (selection) {
+    case 1:
+      printf("%c\n",toLow(character));
+      break;
+    case 2:
+      printf("%c\n",toUp(character));
+      break;
+    case 3:
+      printf("%c\n",nextCharacter(character));
+      break;
+    case 4:
+      printf("%c\n",nextLetter(character));
   }
-
+  
   return 0;
   
 }

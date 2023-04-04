@@ -1,39 +1,41 @@
 #include <stdio.h>
 #include <math.h>
-
+#define EPSILON 0.03
 
 int fact(int r){
 
-  int i;
+  int i, l =1;
 
-  for ( i = 1; i<r; i++ ){
+  for ( i = 1; i<=r; i++ ){
 
-    i*=i;
+    l *= i;
 
   }
   
-  return i;
+  return l;
 
 }
 
 
-int expo(x){
+double taylor(int x){
 
   int i;
+  double l = 0;
 
-  for ( i=1; i<10; i++ ){
+  for ( i=0; i<13; i++ ){
 
-  int l = (pow(i,x))/(fact(i));
+    l += (double)(pow(x,i))/(double)(fact(i));
 
   }
 
+  return l;
 }
 
 
 
 int main(){
 
-  printf("%d", fact(5));
-
+  printf("%f\n", taylor(7));
+  printf("%f\n", exp(7));
 
 }

@@ -38,17 +38,12 @@ main(void) {
   for (int i=0; i < 10; i++)
      assert(redondeo(x,i)==x);
 
-  x = 1.15555;
-
-  printf("%f", redondeo(x,2));
-
-
   x = 1.11111;
   assert(equals(redondeo(x,0),1.0));
   assert(equals(redondeo(x,1),1.1));
   assert(equals(redondeo(x,2),1.11));
   assert(equals(redondeo(x,3),1.111));
-  assert(equals(redondeo(x,4),1.1111));
+  assert(equals(redondeo(x,4),1.1111))
   assert(equals(redondeo(x,5),1.11111));
   assert(equals(redondeo(x,6),1.11111));
   assert(equals(redondeo(x,7),1.11111));

@@ -2,7 +2,7 @@
 #include <math.h>
 #define EPSILON 0.03
 
-int fact(int r){
+double fact(int r){
 
   int i, l =1;
 
@@ -17,13 +17,15 @@ int fact(int r){
 }
 
 
-double taylor(int x){
+double taylor(double x, double epsilon){
 
   int i;
-  double l = 0;
+  double l = 1, t = 0;
 
-  for ( i=0; i<13; i++ ){
 
+  for ( i=1; (l-t) > epsilon; i++ ){
+
+    t = l;
     l += (double)(pow(x,i))/(double)(fact(i));
 
   }
@@ -35,7 +37,9 @@ double taylor(int x){
 
 int main(){
 
-  printf("%f\n", taylor(7));
+  //printf("%d", fact(10));
+
+  printf("%f\n", taylor(7, 0.0001));
   printf("%f\n", exp(7));
 
 }

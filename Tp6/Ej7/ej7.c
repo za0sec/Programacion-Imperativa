@@ -6,51 +6,75 @@
 		v1 = {1,2,3,-1} y v2 = {2,3,4,-1}  →  unión = {1,2,3,4,-1}.
 		v1 = {1,2,3,-1} y v2 = {1,2,3,-1}  →  unión = {1,2,3,-1}.
  */
+
 #include <stdio.h>
+#include <assert.h>
+#define END -1
 
 
-int merge(const int vec[], unsigned int dim, const int vec1[], int vec2[]);
+int merge(const int vec[], const int vec1[], int res[]);
 
 
-int main(){
-
-  int vec[] = {1,2,3,7,8,9,-1};
-  int dim = sizeof(vec)/sizeof(vec[0]);
-  int vec1[] = {2,4,6,7,8,-1};
-  int dim = sizeof(vec1)/sizeof(vec1[0]);
-  int vec2[dim];
-
-  int j = merge(vec, dim, vec1, vec2);
-
-  for ( int i = 0; i<j; i++ )
-    printf("%d,", vec2[i]);
-
+void check(const int v1[], const int v2[]) {
+  int i;
+  for(i=0; v1[i] != -1; i++)
+     assert(v1[i]==v2[i]);
+  assert(v1[i]==-1);
+  assert(v2[i]==-1);
 }
 
+int main(void) {
+  int v1[] = { 1, 5, 15, 30, 35, 45, 55, -1};
+  int v2[] = {-1};
+  int v3[] = { 1, -1};
+  int v4[] = { 2, 3, 15, 16, 33, 35, 45, 65, -1};
+  int dimRes;
+  int res[30];
 
-int merge(const int vec[], unsigned int dim, const int vec1[], int vec2[]){
+  merge(v1, v2, res);
+  check(v1, res);
 
-  int j = 0;
+  merge(v2, v2, res);
+  check(v2, res);
 
-  dim = 
+  merge(v1, v1, res);
+  check(v1, res);
 
-  for ( int i = 0, k = 0; vec1[k] > 0; i++ ){
+  merge(v1, v3, res);
+  check(v1, res);
 
-    if ( vec[i] == vec1[k] ){
+  int expected[] = {1, 2, 3, 5, 15, 16, 30, 33, 35, 45, 55, 65, -1};
+  merge(v1, v4, res);
+  check(expected, res);
 
-      vec2[j++] = vec[i];
+  printf("OK!\n");
+  return 0;
+}
+
+int merge(const int vec[], const int vec1[], int res[]){
+
+  int j = 0, k = 0, i = 0;
+  
+  while (vec[i] != END || vec1[k] != END){
+    if (vec[i] == END) {
+      res[j++] = vec1[k++];
+    } else if (vec1[k] == END) {
+      res[j++] = vec[i++];
+    } else if (vec[i] == vec1[k]){
+      res[j++] = vec[i++];
       k++;
-
-    }else if ( vec[i] > vec1[k] ){
-
-      k++;
-      i--;
+    } else if (vec[i] > vec1[k]){
+      res[j++] = vec1[k++];
+    } else if (vec[i] < vec1[k]){
+      res[j++] = vec[i++];
     }
-
-
   }
 
+  res[j] = END; 
 
-  return j;
+  for (int i=0; i<=j; i++ )
+    printf("%d,", res[i] );
+
+    return j;
 
 }

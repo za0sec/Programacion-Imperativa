@@ -1,12 +1,15 @@
 #include <stdio.h>
 //#include "../../libreria/random.h"
 #include <assert.h>
+#define MAX(a,b) ((a) > (b) ? (a) : (b))
+#define MIN(a,b) ((a) < (b) ? (a) : (b))
+
 #define ANCHO 5
 #define ALTO 6
 
-void suavizar(unsigned char mat[ALTO][ANCHO], size_t w);
+void suavizar(unsigned char mat[ALTO][ANCHO], int w);
 
-int sumSuav(unsigned char mat[ALTO][ANCHO], size_t fil, size_t col, size_t w);
+int sumSuav(unsigned char mat[ALTO][ANCHO], int fil, int col, int w);
 
 void printMat(int mat[][ANCHO]);
 
@@ -81,7 +84,7 @@ void copyMat(unsigned char mat2[ALTO][ANCHO], unsigned char mat[ALTO][ANCHO]){
 }
 
 
-void suavizar(unsigned char mat[][ANCHO], size_t w){
+void suavizar(unsigned char mat[][ANCHO], int w){
 
   unsigned char mat2[ALTO][ANCHO];
   copyMat(mat2, mat);
@@ -103,32 +106,17 @@ void suavizar(unsigned char mat[][ANCHO], size_t w){
 
 }
 
-int sumSuav(unsigned char mat[][ANCHO], size_t fil, size_t col, size_t w){
+int sumSuav(unsigned char mat[][ANCHO], int fil, int col, int w){
   
-  int nF = fil-((w-1)/2);
-  int nC = col-((w-1)/2);
+  int nW = (w-1)/2;
 
-  while (nF < 0){
-    nF++;
-  }
-  while (nC < 0){
-    nC++; 
-  }
+  int nF = MAX(0,fil-nW);
+  int nC = MAX(0,col-nW);
+
 
   int num = 0, cont = 0;
-  int lim1 = fil+((w-1)/2); //8
-  int lim2 = col+((w-1)/2); //8
-
-  while (lim1 >= ALTO){
-
-    lim1--;
-
-  }
-  while (lim2 >= ANCHO){
-
-    lim2--;
-
-  }
+  int lim1 = MIN(ALTO-1,fil+nW);
+  int lim2 = MIN(ANCHO-1,col+nW);
 
 
   for ( int i=nF; i<=lim1; i++ ){

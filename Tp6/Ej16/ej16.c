@@ -86,9 +86,9 @@ int m5[][COLS] = {
 
 int ordered(int mat[FILS][COLS]){
 
-  int contA = 0, contD = 0;
+  int contA = 0, contD = 0, contAux = 0;
 
-  for ( int i=0; i<FILS; i++ ){
+  for ( int i=0; i<FILS && (contAux == contA || contAux == contD); i++ ){
 
     for ( int j=0; j<COLS; j++ ){
 
@@ -96,13 +96,16 @@ int ordered(int mat[FILS][COLS]){
 
         case ASC:
           contA++;
+          contAux++;
           break;
         case DESC:
           contD++;
+          contAux++;
           break;
         case NOTHING:
           contA++;
           contD++;
+          contAux++;
           break;
       }
 

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <assert.h>
+enum codes {ASC=1, DESC, NOTHING};
 
 #define FILS 3
 #define COLS 4
@@ -93,13 +94,13 @@ int ordered(int mat[FILS][COLS]){
 
       switch (check(mat, i, j)){
 
-        case 1:
+        case ASC:
           contA++;
           break;
-        case 2:
+        case DESC:
           contD++;
           break;
-        case 3:
+        case NOTHING:
           contA++;
           contD++;
           break;
@@ -130,10 +131,10 @@ int check(int mat[FILS][COLS], int i, int j){
   }
 
   if ( mat[i][j] < mat[nI][nJ] )
-    return 1;
+    return ASC;
   else if ( mat[i][j] > mat[nI][nJ] )
-    return 2;
+    return DESC;
   else
-    return 3;
+    return NOTHING;
 
 }

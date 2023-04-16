@@ -96,18 +96,17 @@ int ordered(int mat[FILS][COLS]){
 
         case ASC:
           contA++;
-          contAux++;
           break;
         case DESC:
           contD++;
-          contAux++;
           break;
         case NOTHING:
           contA++;
           contD++;
-          contAux++;
           break;
       }
+
+      contAux++;
 
     }
 

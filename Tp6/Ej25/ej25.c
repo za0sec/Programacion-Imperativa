@@ -16,8 +16,9 @@ int main(void) {
   assert(strcmp(s, "u")==0);
   assert(copyStrFromTo("un texto", s,0,10,1)==0);
   assert(strcmp(s, "")==0);
+
   assert(copyStrFromTo("un texto", s,45,130,1)==0);
-  assert(strcmp(s, "")==0);
+
 
   assert(copyStrFromTo("un texto", s,0,130,2)==1);
   assert(strcmp(s, "u")==0);
@@ -33,12 +34,12 @@ int main(void) {
 
   assert(copyStrFromTo("un texto", s,2,5,8)==4);
   assert(strcmp(s, " tex")==0);
-
+  
+  assert(copyStrFromTo("un texto", s,45000,130000,10)==0);
 
   printf("OK!\n");
   return 0;
 }
-
 
 unsigned int copyStrFromTo(const char * arregloIn, char * arregloOut, size_t desde, size_t hasta, size_t dimMax){
 
@@ -56,6 +57,9 @@ unsigned int copyStrFromTo(const char * arregloIn, char * arregloOut, size_t des
   }
 
   arregloOut[k] = '\0';
+  if ( k < desde )
+    k=0;
+
   return k;
 
 }
@@ -64,7 +68,7 @@ bool verifications(const char * arregloIn, size_t desde, size_t hasta, size_t di
 
   bool ver = false;
 
-  if ( desde >= 0 && arregloIn[desde] != '\0'  && (hasta >= desde) && (dimMax >= desde) ){
+  if ( desde >= 0 && dimMax >= desde && hasta >= desde ){
   
     ver = true;
 

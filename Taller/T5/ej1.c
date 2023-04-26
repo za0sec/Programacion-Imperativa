@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <assert.h>
-
+#include <string.h>
 
 void eliminaRepetidas(char[]);
  
@@ -47,20 +47,21 @@ void eliminaRepetidas(char *s){
 
 
   int i, j;
-  if (s[0] == 0){
-    return;
-  }
-  for (i = j = 1; s[i]; i++){
+  if (s[0] != '\0'){
+    
+    for (i = j = 1; s[i] !='\0'; i++){
 
-    if (s[i] != s[i-1]){
+      if (s[i] != s[i-1]){
 
-      s[j++] = s[i];
+        s[j++] = s[i];
 
-    }
+      }
   
+    }
+  s[j] = '\0';
 
   }
-  s[j] = '\0';
+  return;
 }
 
 

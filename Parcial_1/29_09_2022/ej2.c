@@ -62,10 +62,10 @@ int palEnMat(const char mat[][N], int fil, int col, char * str){
   int matPos[2][8] = {{0, -1, -1, -1, 0, 1, 1, 1},
                       {1, 1, 0, -1, -1, -1, 0, 1}};
 
+  int c = strlen(str);
 
   for (int j=0; j<8; j++){
 
-    int c = strlen(str);
     
     if (esString(mat, fil, col, matPos[0][j], matPos[1][j], str, c))
       return 1;

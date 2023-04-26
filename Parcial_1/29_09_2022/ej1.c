@@ -22,8 +22,6 @@ int main(){
   return 0;
 }
 
-
-
 int requirments(int mat[][N]){
 
   int vecAp[N*N] = {0};
@@ -34,6 +32,7 @@ int requirments(int mat[][N]){
 
     for (int j=0; j<N; j++){
 
+      
       vecAp[mat[i][j]-1] = 1;
       
     }

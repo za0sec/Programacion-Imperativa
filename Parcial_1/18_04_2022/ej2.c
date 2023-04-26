@@ -24,14 +24,11 @@ int main(){
 
 int isVocal(char c){
 
-  char vocales[] = {"AEIOU"};
+  static char vocales[] = "AEIOU";
 
-  char * p = strchr(vocales, c);
+  char * p = strchr(vocales, toupper(c));
 
-  if (p == NULL)
-    return 0;
-
-  return 1;
+  return p != NULL;
 
 }
 
@@ -39,25 +36,18 @@ int isVocal(char c){
 
 void eliminaVoc(char * s){
 
-  char l;
+  char l = 'A';
 
   int t=0;
 
   for (int i=0; s[i] != '\0'; i++){
 
-    char a= toupper(s[i]);
-    char n= toupper(s[i+1]);
+    char a= s[i];
+    char n= s[i+1];
   
-    
-    if(i==0){
-      l = 'A'; 
-    }
 
-    if (isVocal(a) && ( ( (isalpha(n) && !isVocal(n) ) ) || ( isalpha(l) && !isVocal(l)) )  ){
-        s[t] = s[i]; 
-    }else{
-      s[t++] = s[i];
-    }
+    if ( !(isVocal(a) && ( ( (isalpha(n) && !isVocal(n) ) ) || ( isalpha(l) && !isVocal(l))) )  )
+        s[t++] = s[i]; 
     
     l = a;
     

@@ -29,7 +29,6 @@ void elimina(char * s, const char * c){
 
     band=0;
 
-
     for(j=0; c[j] != '\0'; j++){
 
       if(c[j] == s[i]){

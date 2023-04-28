@@ -70,6 +70,7 @@ int isMagic(const int mat[][N]){
       if(!check(f, c, vecAp, sumFil, sumCol, modelo, i))
         return NOT_MAGIC;
 
+
     }
     
     if (modelo != sumFil || modelo != sumCol)
@@ -81,7 +82,7 @@ int isMagic(const int mat[][N]){
 
 }
 
-int check(int f, int c, int vecAp[], int sumFil, int sumCol, int modelo, int i){
+int check(int f, int c, int vecAp[], int * sumFil, int * sumCol, int modelo, int i){
 
 
   if ( BETWEN(f) ){

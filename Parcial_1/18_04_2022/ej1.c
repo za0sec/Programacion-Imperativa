@@ -68,9 +68,5 @@ void difSim(const int m1[][COLS], const int m2[][COLS], int m3[][COLS], int fila
     }
 
   }
-
-
-
-
   
 }

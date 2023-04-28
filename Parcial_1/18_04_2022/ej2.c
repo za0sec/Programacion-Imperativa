@@ -20,6 +20,11 @@ int main(){
 
 
 
+if (i==0)
+      modelo += f;
+
+    sumFil += f;
+    sumCol += c;
 }
 
 int isVocal(char c){

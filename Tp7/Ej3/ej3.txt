@@ -1,0 +1,1 @@
+Este programa concatena las dos cadenas de strings pero muy ineficiente y din programacion defensiva.

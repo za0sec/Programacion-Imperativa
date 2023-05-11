@@ -2,18 +2,21 @@
 #include "../../libreria/getnum.h"
 #include "../../libreria/random.h"
 #include <stdlib.h>
+#include <string.h>
 
 #define X 5
 
 void generarAleatorio(int icognita[]);
 
-int cantidadRegular(int icognita[], int num[]);
+int cantidadRegular(int icognita[], char num[]);
 
-int coincideNumero(int icognita[], int num[]);
+int estaRepetido(char * num);
 
-int cantidadBien(int icognita[], int num[]);
+int coincideNumero(int icognita[], char num[]);
 
-void leerNumero(int num[]);
+int cantidadBien(int icognita[], char num[]);
+
+void leerNumero(char num[]);
 
 int elegirNivel();
 
@@ -36,9 +39,7 @@ int main(){
   
   for (int i=0; i<level; i++){
     
-    int * num;
-
-    num = malloc(X*sizeof(int));
+    char num[X+1];
 
     leerNumero(num);
 
@@ -118,28 +119,38 @@ void leerNumero(int * num){
 
   int aux[9] = {0};
 
-  int elegido, i=1, ultimo, copia;
+  int i=1, cont=0;
 
-  do{
+
+  
     printf("Ingrese un numero de %d digitos: ", X);
-    scanf("%s", num);
+
+  while(i){
+
+    
+    scanf("%5[1-9]", num);
+    
+    if (strlen(num) == X || !estaRepetido(num))
+      i=0;
+    else
+      printf("Vuelva a ingresar un numero de %d digitos: ", X);
 
   }
 
+}
 
+int estaRepetido(int num[]){
 
+  int cont=0;
+
+  for (int i=0; num[i]; i++)
+    for (int j=0; j<X; j++)
+      if (num[i] == num[j])
+        cont++;
+        
     
-    
+  return cont > 1 ? 1: 0;
 
-    if(elegido > 0 && elegido < 10 && !aux[elegido-1]){
-      num[i++] = elegido;
-      aux[elegido-1] = 1;
-    }else{
-      puts("Dato Incorrecto");
-    }
-
-    
-  }
 
 }
 

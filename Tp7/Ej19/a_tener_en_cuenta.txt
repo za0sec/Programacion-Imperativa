@@ -1,0 +1,2 @@
+En este ejercicio hay que tener en cuenta que cuando n > dim, hay que igualar n a dim porque sino estoy liberando memoria que no se utilizo!
+El problema que tuve yo es que no tuve en cuenta que no puedo devolver s porque estaria liberando memoria que no utilizo. En cambio, devuelvo siempre el nuevo string pero en este caso lo devuelvo copiando en el, el string s que es el que me dieron. NO PUEDO DEVOLVER UN STRING QUE NO SEA DE MEMORIA DINAMICA SI DESPUES LA LIBERO PORQUE SE ROMPERIA. 

@@ -7,12 +7,14 @@
 
 #include <stdio.h>
 #include "../../libreria/random.h"
+#include "../../libreria/getnum.h"
 #include <stdlib.h>
 
 typedef  int TipoLinea[5];
 typedef  TipoLinea  TipoCarton [3]; 
 #define MAX_BOLILLAS 90
-#define JUGADORES 2 
+
+int numJugadores;
 
 void generarCarton(TipoCarton * carton);
 
@@ -26,14 +28,16 @@ int controlarCarton(TipoCarton * carton, int bolilla);
 
 void imprimirCarton(TipoCarton carton);
 
-int jugar(int bolillero[], TipoCarton carton[]);
+int jugar(int bolillero[], TipoCarton * carton);
 
 
 int main(void){
 
   randomize();
 
-  TipoCarton carton[JUGADORES];
+  numJugadores = getint("Ingrese cantidad de jugadores: ");
+
+  TipoCarton * carton = malloc(numJugadores * sizeof(TipoCarton));
   
     generarCarton(carton);
 
@@ -46,26 +50,35 @@ int main(void){
 
   puts("Ganador representado en binario: ");
   
-  for (int i = JUGADORES - 1; i >= 0; i--) {
+  for (int i = numJugadores - 1; i >= 0; i--) {
   
     printf("%d", (resultado >> i) & 1);
   
   }
 
-printf("\n");  
+  puts("");  
+
+
+  free(carton);
 
   return 0;
 }
 
-int jugar(int bolillero[], TipoCarton carton[]){
+int jugar(int bolillero[], TipoCarton * carton){
   
-  int ganador = 0, bolilla, linea;
+  int ganador = 0, bolilla, linea, jugadores = numJugadores;
 
-  int ganadores[JUGADORES] = {0}, resultado = 0;
+  int ganadores[jugadores];
+  
+  for (int i = 0; i < jugadores; i++) {
+    ganadores[i] = 0;
+  }
+
+  int resultado = 0;
 
   int cantBolillas = MAX_BOLILLAS, bandera = 0;
 
-  for (int i=0; i<JUGADORES; i++){
+  for (int i=0; i<jugadores; i++){
       printf("Carton del jugador %d\n", i+1);
       imprimirCarton(carton[i]);
       puts("");
@@ -79,7 +92,7 @@ int jugar(int bolillero[], TipoCarton carton[]){
     bolilla = sacarBolilla(bolillero, &cantBolillas);
       printf("\n\nLa bolilla extraida es la nro %d\n\n", bolilla);
 
-    for (int i=0; i<JUGADORES; i++){
+    for (int i=0; i<jugadores; i++){
         linea = controlarCarton(&carton[i], bolilla);
         if (linea == 1 && bandera == 0){
           printf("\n\nEl jugador %d completo una linea\n\n", i+1);
@@ -93,7 +106,7 @@ int jugar(int bolillero[], TipoCarton carton[]){
           
       }
 
-    for (int i=0; i<JUGADORES; i++){
+    for (int i=0; i<jugadores; i++){
     
       printf("Carton del jugador %d\n", i+1);
       imprimirCarton(carton[i]);
@@ -108,7 +121,7 @@ int jugar(int bolillero[], TipoCarton carton[]){
 
   }
 
-  for (int i = 0; i < JUGADORES; ++i) {
+  for (int i = 0; i < jugadores; ++i) {
     if (ganadores[i]) {
         resultado = resultado | (1 << i);
     }
@@ -198,8 +211,9 @@ int sacarBolilla(int bolillero[], int * cantBolillas){
 
 void generarCarton(TipoCarton * carton){
 
+  int jugadores = numJugadores;
 
-  for(int c=0; c<JUGADORES; c++){
+  for(int c=0; c<jugadores; c++){
 
     int aux[90] = {0}, aleatorio;
 

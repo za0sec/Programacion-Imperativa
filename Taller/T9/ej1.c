@@ -1,7 +1,4 @@
-
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include "../../libreria/random.h"
 
 #define MAX 100
@@ -18,7 +15,7 @@ typedef tPunto2D * tPosiciones;
 
 void print(tPosiciones pos, int dim);
 
-tPosiciones generarPuntos(int * i);
+tPosiciones incrementParticle(int * i);
 
 tPunto2D movement(tPunto2D particle);
 
@@ -28,14 +25,14 @@ int main(){
 
   int i;
  
-  tPosiciones pos = generarPuntos(&i);
+  tPosiciones pos = incrementParticle(&i);
  
   print(pos, i);
 
   free(pos);
 }
 
-tPosiciones generarPuntos(int * i){
+tPosiciones incrementParticle(int * i){
   
   tPunto2D particle;
 

@@ -9,9 +9,11 @@ POKER: hay cuatro cartas con igual valor
 #include "../../libreria/random.h"
 #include <string.h>
 
+
 #define MAX_CARDS 13
 #define PALO 4
 #define CHOSEN 5
+#define PLAYERS 2
 
 enum TYPE {PAR=1, PIERNA, POKER};
 
@@ -25,21 +27,20 @@ typedef struct tCards{
 
 int check(tCards * cartas);
 
-
-
-
 tCards * shuffle(tCards * deck);
 
-int main(){
+void print(tCards * cartas1, tCards * cartas2);
 
+
+
+int main(){
+  
+  
   randomize();
   
   tCards card;
 
-  char * palito[] = {"Diamante", "Corazon", "Trebol", "Picas"};
-
-  char *num[] = {"As", "Dos", "Tres", "Cuatro", "Cinco", "Seis", "Siete", "Ocho", "Nueve", "Diez", "Jota", "Reina", "Rey"};
-
+  
   tCards deck[PALO*MAX_CARDS];
 
   for (int i=0; i<PALO; i++){
@@ -50,18 +51,78 @@ int main(){
     }
   }
 
-  tCards * cartas = shuffle(deck);
+  int n = 0;
+  char c;
 
-  int whatIs = check(cartas);
+  while(!n){
+   
+    play(deck); 
+    puts("Presione enter para seguir jugando, Presione n para cortar.");
+    
+    if ( (c =getchar()) == 'n')
+      n = 1;
 
-  for(int i=0; i<CHOSEN; i++)
-    printf("%s de %s\n", num[cartas[i].valor], palito[cartas[i].palo]);
+  }
 
-  return whatIs;
+  
+  //free(cartas1);
+  //free(cartas2);
+
+
+
+  return 0;
 
 }
 
+int play(tCards deck[]){
 
+  tCards * cartas1;
+
+  int cont1=0, cont2=0;
+
+  tCards * cartas2;
+  
+  int whatIs1, whatIs2;
+
+  cartas1 = shuffle(deck);
+
+  cartas2 = shuffle(deck);
+  
+  whatIs1 = check(cartas1);
+  whatIs2 = check(cartas2);
+
+  print(cartas1, cartas2);
+
+  if (whatIs1 > whatIs2){
+    cont1++;
+    printf("El jugador 1 va %d puntos.\n", cont1);
+  }else if (whatIs2> whatIs1){
+    cont2++;
+    printf("El jugador 2 va %d puntos.\n", cont2);
+  }
+
+  return cont1 >= cont2 ? cont1 : cont2;
+
+}
+
+void print(tCards * cartas1, tCards * cartas2){
+
+  char * palito[] = {"Diamante", "Corazon", "Trebol", "Picas"};
+
+  char *num[] = {"As", "Dos", "Tres", "Cuatro", "Cinco", "Seis", "Siete", "Ocho", "Nueve", "Diez", "Jota", "Reina", "Rey"};
+
+  for(int i=0; i<CHOSEN; i++)
+    printf("%s de %s\n", num[cartas1[i].valor], palito[cartas1[i].palo]);
+
+  puts("");
+
+  for(int i=0; i<CHOSEN; i++)
+    printf("%s de %s\n", num[cartas2[i].valor], palito[cartas2[i].palo]);
+
+
+
+
+}
 
 int check(tCards * cartas){
   
@@ -89,6 +150,8 @@ int check(tCards * cartas){
 }
 
 
+
+
 tCards * shuffle(tCards * deck){
   
   tCards * cartas = malloc(CHOSEN*sizeof(tCards));
@@ -106,5 +169,3 @@ tCards * shuffle(tCards * deck){
   }
   return cartas;
 }
-
-

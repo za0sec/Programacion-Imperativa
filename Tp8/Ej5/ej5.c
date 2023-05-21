@@ -16,8 +16,9 @@ Relación (radio / tiempo )
 */
 
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "../../libreria/random.h"
+#include <math.h>
+
 
 typedef struct tPoint{
 
@@ -26,29 +27,40 @@ typedef struct tPoint{
 
 }tPoint;
 
+void movement(tPoint * particle, int * t);
+
 int main(){
 
+  randomize();
   
-  
+  int r[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+  int t = 0; 
+
   tPoint particle;
 
   particle.x = 0;
   particle.y = 0;
 
-  movement(particle);
-
+  for (int i=0; i<10; i++){
+    while( (pow(particle.x, 2) + pow(particle.y, 2)) < r[i]){
+      movement(&particle, &t); 
+    }
+    printf("%d\t%d\t%f\n", r[i], t, (float)r[i]/t);
+  }
 }
 
-void movement(tPoint particle){
+void movement(tPoint * particle, int * t){
   
   
   int increment[] = {-1, 1}; 
   
-  int r = 0;
+  (*t)++;
 
-
+  int moveX = randInt(0, 1);
+  int moveY = randInt(0, 1);
   
-  
-  
+  particle->x += increment[moveX];
+  particle->y += increment[moveY];
   
 }

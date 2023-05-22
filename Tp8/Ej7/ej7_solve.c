@@ -180,7 +180,7 @@ int isWord(char mat[][COLS], char * word, int i, int j, Tdireccion * direction) 
   return 0;
 }
 
-//Esta funcion no se hace asi simplemente queria probar otra forma de hacerlo y el chelo me la tiro abajo.
+//Esta funcion no se hace asi simplemente queria probar otra forma de hacerlo y cuando pregunte me dijeron que habia una manera mas linda de hacerlo.
 //Se hace con vector de direcciones.
 //Ahora me da paja cambiarlo.
 void directions(Tdireccion dir, int * i, int * j){

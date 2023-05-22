@@ -34,6 +34,7 @@ void directions(Tdireccion dir, int * i, int * j);
 //       que empiece con esa letra, tienen que cambiar el testeo para que coincida con el orden en que se encuentran.
 
 
+
 int main(void) {
   char * diccionario[] = {"ARRE", "CANCION", "CAPA", "ERROR", "ORCO", "PERRO", "PERTINAZ", "REA", "RIO", ""};
    

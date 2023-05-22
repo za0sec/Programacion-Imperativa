@@ -8,11 +8,11 @@ int productoEsc(int * vector1, int * vector2, int dim);
 
 int main(){
 
-  int vector1[5] = {1,2};
-  int vector2[5] = {1,2};
-  int dimension = 2;
+  int vector1[5] = {1,2, 9};
+  int vector2[5] = {1,2, 2};
+  int dimension = 3;
 
-  printf("%d", productoEsc(vector1, vector2, dimension));
+  printf("%d\n", productoEsc(vector1, vector2, dimension));
 
   return 0;
 }

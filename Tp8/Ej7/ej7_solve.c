@@ -3,8 +3,8 @@
 #include <assert.h>
 #include <stdlib.h>
 
-#define COLS 7
-#define FILS 6
+#define COLS 20
+#define FILS 20
 
 #define CHUNK 10
 
@@ -34,51 +34,58 @@ void directions(Tdireccion dir, int * i, int * j);
 //       que empiece con esa letra, tienen que cambiar el testeo para que coincida con el orden en que se encuentran.
 
 
+
 int main(void) {
-  char * diccionario[] = {"ARRE", "CANCION", "CAPA", "ERROR", "ORCO", "PERRO", "PERTINAZ", "REA", "RIO", ""};
+  char * diccionario[] = {
+    "ANDADOR", "APELAR", "APENAS", "CUELLO", "EGRESAR", "ESBELTO", 
+    "GUIAR", "HABLA", "ISLETA", "LICOR", "PACTO", "PORTERA", 
+    "POSE", "PUERTORRIQUENO", "REALCE", "RIZO", "TALLO", "TENSO", 
+    "UNICO", "UNISONO", ""
+  };
    
-  char sopa[FILS][COLS] =
-     {{'X','X','X','O','X','X','X'},
-      {'A','P','A','C','Y','Y','O'},
-      {'Z','E','Z','R','Z','C','X'},
-      {'E','R','R','O','R','X','X'},
-      {'X','R','I','O','I','E','X'},
-      {'X','O','X','X','O','X','X'}};
-  
+  char sopa[FILS][COLS] = {
+    {'K', 'A', 'W', 'O', 'S', 'Q', 'C', 'U', 'E', 'L', 'L', 'O', 'L', 'A', 'O', 'H', 'G', 'Q', 'E', 'U'},
+    {'O', 'R', 'F', 'B', 'A', 'A', 'I', 'O', 'Z', 'J', 'C', 'O', 'K', 'S', 'W', 'T', 'B', 'S', 'S', 'O'},
+    {'Y', 'H', 'O', 'O', 'U', 'R', 'T', 'I', 'F', 'X', 'W', 'K', 'L', 'E', 'I', 'Y', 'O', 'E', 'B', 'G'},
+    {'D', 'A', 'A', 'D', 'H', 'N', 'E', 'U', 'N', 'I', 'S', 'O', 'N', 'O', 'X', 'P', 'S', 'D', 'T', 'X'},
+    {'H', 'B', 'K', 'T', 'A', 'U', 'I', 'T', 'A', 'H', 'H', 'H', 'M', 'U', 'F', 'U', 'S', 'R', 'Q', 'O'},
+    {'U', 'L', 'X', 'X', 'T', 'D', 'D', 'C', 'R', 'J', 'E', 'L', 'K', 'E', 'O', 'E', 'G', 'H', 'C', 'L'},
+    {'E', 'A', 'Z', 'K', 'X', 'A', 'N', 'G', 'O', 'O', 'E', 'O', 'X', 'A', 'G', 'R', 'H', 'E', 'I', 'I'},
+    {'D', 'F', 'P', 'D', 'S', 'R', 'O', 'A', 'L', 'A', 'P', 'R', 'D', 'A', 'T', 'T', 'I', 'T', 'D', 'C'},
+    {'R', 'A', 'I', 'U', 'G', 'O', 'W', 'R', 'S', 'A', 'E', 'H', 'K', 'J', 'A', 'O', 'A', 'E', 'E', 'O'},
+    {'Q', 'A', 'T', 'E', 'L', 'S', 'I', 'K', 'P', 'A', 'E', 'E', 'S', 'P', 'P', 'R', 'Z', 'N', 'A', 'R'},
+    {'W', 'I', 'E', 'Z', 'J', 'I', 'N', 'E', 'L', 'Z', 'U', 'Z', 'A', 'X', 'E', 'R', 'X', 'S', 'S', 'W'},
+    {'L', 'X', 'G', 'D', 'V', 'B', 'N', 'C', 'M', 'K', 'U', 'C', 'N', 'N', 'L', 'I', 'F', 'O', 'O', 'A'},
+    {'U', 'H', 'R', 'O', 'S', 'A', 'E', 'Q', 'G', 'H', 'T', 'Y', 'X', 'T', 'A', 'Q', 'I', 'F', 'U', 'R'},
+    {'B', 'E', 'E', 'F', 'S', 'Q', 'Y', 'A', 'G', 'O', 'Y', 'U', 'U', 'R', 'R', 'U', 'W', 'Z', 'I', 'Q'},
+    {'B', 'T', 'S', 'T', 'B', 'A', 'U', 'K', 'U', 'Y', 'R', 'U', 'U', 'X', 'D', 'E', 'Y', 'Z', 'X', 'S'},
+    {'U', 'K', 'A', 'C', 'K', 'W', 'T', 'G', 'O', 'J', 'U', 'R', 'J', 'T', 'Y', 'X', 'O', 'U', 'V', 'A'},
+    {'R', 'X', 'R', 'E', 'Z', 'A', 'A', 'E', 'Y', 'E', 'X', 'I', 'L', 'I', 'I', 'O', 'W', 'V', 'U', 'L'},
+    {'X', 'C', 'U', 'A', 'K', 'M', 'L', 'I', 'E', 'A', 'N', 'X', 'E', 'A', 'Z', 'L', 'O', 'U', 'U', 'N'},
+    {'D', 'P', 'Z', 'A', 'I', 'P', 'L', 'F', 'K', 'T', 'V', 'R', 'C', 'S', 'U', 'M', 'N', 'X', 'Z', 'H'},
+    {'Q', 'F', 'D', 'U', 'J', 'D', 'O', 'L', 'O', 'A', 'K', 'E', 'S', 'B', 'E', 'L', 'T', 'O', 'O', 'Z'}
+};  
+
   struct posicion * res = resolverSopa(diccionario, sopa);
-  // La cantidad de palabras encontradas debe ser 9
-  int expected = 9;
-  int count = 0;
-  while ( res[count].palabra != NULL)
-     printf("%s\n", res[count++].palabra);
-  assert(count == expected);
-
-  assert(strcmp(res[0].palabra,"ARRE")==0);
-  assert(res[0].fila==1);
-  assert(res[0].columna==2);
-  assert(res[0].direccion==D_AB);
-
-  assert(strcmp(res[3].palabra,"ORCO")==0);
-  assert(res[3].fila==3);
-  assert(res[3].columna==3);
-  printf("%d\n", res[3].direccion);
-  assert(res[3].direccion==ARR);
   
-  assert(strcmp(res[4].palabra,"ORCO")==0);
-  assert(res[4].fila==4);
-  assert(res[4].columna==3);
-  assert(res[4].direccion==D_AR);
-
-  assert(strcmp(res[6].palabra,"REA")==0);
-  assert(res[6].fila==3);
-  assert(res[6].columna==2);
-  assert(res[6].direccion==I_AR);
+  int expected = 19; 
+  int count = 0;
+  while (res[count].palabra != NULL) {
+    printf("Palabra: %s, Fila: %ld, Columna: %ld, Direccion: %d\n",
+           res[count].palabra,
+           res[count].fila+1,
+           res[count].columna+1,
+           res[count].direccion);
+    count++;
+  }
+  assert(count == expected);
 
   free(res);
 
   puts("OK");
   return 0;
 }
+
 
 
 

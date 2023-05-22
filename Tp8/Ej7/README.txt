@@ -1,0 +1,1 @@
+La principal diferencia entre estos dos codigos es que uno tiene el assert dado por la catedra y el otro es un assert que arme yo (ej7_solve.c) para resolver cualquier sopa de letras que te den y que te imprima en pantalla donde esta ubicada cada palabra en la sopa de letras y hacia que direccion hay que buscarla.

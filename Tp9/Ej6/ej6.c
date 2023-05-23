@@ -14,7 +14,7 @@ int esPalindromoRec(const char * s, int dim);
 int main(){
 
 
-  char * s = "";
+  char * s = "HoalaloaH";
   
 
   printf("%d\n", esPalindromo(s));

@@ -107,4 +107,3 @@ tCards * shuffle(tCards * deck){
   return cartas;
 }
 
-

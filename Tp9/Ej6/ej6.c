@@ -11,19 +11,31 @@ int esPalindromo(const char* s);
 
 int esPalindromoRec(const char * s, int dim);
 
-int main(){
+#include <assert.h>
 
 
-  char * s = "HoalaloaH";
+int main(void) {
+
+  assert(esPalindromo("a")==1);
+  assert(esPalindromo("")==1);
+  assert(esPalindromo("neuquen")==1);
+  assert(esPalindromo("abba")==1);
+  assert(esPalindromo("12345654321")==1);
+
+  assert(esPalindromo("abab")==0);
+  assert(esPalindromo("123456")==0);
   
 
-  printf("%d\n", esPalindromo(s));
-
+  printf ("OK!\n");
+  return 0;
 }
 
 
 int esPalindromo(const char* s) {
-    
+ 
+  if (!(*s))
+    return 1;
+
   if (s == NULL)
     return 1;
     
@@ -34,7 +46,7 @@ int esPalindromo(const char* s) {
 
 int esPalindromoRec(const char * s, int dim){
 
-  if (dim == 1)
+  if (dim <= 1)
     return 1;
 
   if (s[0] != s[dim-1] )

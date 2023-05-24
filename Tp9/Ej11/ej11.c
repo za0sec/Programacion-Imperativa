@@ -10,10 +10,13 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <assert.h>
 
 #define MAX 10
 
-void reemplazo(int matriz[][MAX], int dim, int fil, int col);
+void reemplazo(int matriz[][MAX], int dim, int row, int col);
+
+void reemplazo_aux(int matriz[][MAX], int dim, int row, int col , int nRow, int nCol);
 
 int main(void) {
 
@@ -41,10 +44,28 @@ int main(void) {
   return 0;
 }
 
-void reemplazo(int matriz[][MAX], int dim, int fil, int col){
+void reemplazo(int matriz[][MAX], int dim, int row, int col){
 
-  
+  matriz[row][col] = !matriz[row][col];
+
+  int mod[2] = {-1, 1};
+
+  for(int i = 0; i < 2; i++) {
+    for(int j = 0; j < 2; j++) {
+        reemplazo_aux(matriz, dim, row, col, mod[i], mod[j]);
+    }
+  }
+}
+
+
+void reemplazo_aux(int matriz[][MAX], int dim, int row, int col, int nRow, int nCol){
+
+  if (col < 0 || row < 0 || col == dim || row == dim)
+    return;
+
+  reemplazo_aux(matriz, dim, row + nRow, col + nCol, nRow, nCol);
+
+   matriz[row][col] = !matriz[row][col];
 
 
 }
-

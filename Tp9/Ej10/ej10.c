@@ -13,7 +13,7 @@ Nota: se asume que el vector de entrada no es el mismo que el de salida
 #include <string.h>
 #include <assert.h>
 
-void invierte(const char * s1, char * s2);
+int invierte(const char * s1, char * s2);
 
 int main(void) {
 
@@ -42,17 +42,16 @@ int main(void) {
   return 0;
 }
 
-void invierte(const char * s1, char * s2){
-
+int invierte(const char * s1, char * s2){
 
   if (s1[0] == '\0'){
     s2[0] = s1[0];
-    s2++;
-    return;
+    return 0;
   }
 
-  invierte(s1+1, s2);
+  int cont = 1 + invierte(s1+1, s2);
   
-  s2[0] = s1[0];
-  s2++;
+  s2[cont-1] = s1[0];
+  return cont;
+
 }

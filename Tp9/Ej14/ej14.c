@@ -2,9 +2,57 @@
 //y debe retornar cero sólo si los paréntesis están apareados. 
 //Consideramos que los paréntesis de una expresión están apareados si
 //para cada paréntesis de apertura hay uno de cierre en una posición posterior. 
+//La funcion debe ser recursiva
 //No definir macros ni funciones auxiliares. 
 
 #include <stdio.h>
 #include <string.h>
 #include <assert.h>
+
+int apareados(const char *texto);
+
+int main(void) {
+
+  assert(apareados("")==0);
+  assert(apareados("()")==0);
+  assert(apareados("(())()(()())")==0);
+  assert(apareados("((((()))))")==0);
+
+  assert(apareados("(")!=0);
+  assert(apareados(")")!=0);
+  assert(apareados("(")!=0);
+  assert(apareados("())")!=0);
+  assert(apareados("()(")!=0);
+  assert(apareados("((()))())(")!=0);
+  
+  printf ("OK!\n");
+  return 0;
+}
+
+
+
+int apareados(const char * s){
+  
+  if (*s == '\0')
+    return 0;
+
+  if (*s == ')'){
+    return 1;
+  }
+
+  if (*s == '('){
+
+    int i = apareados(s+1);
+  
+    if (i == 1){
+      return 0;
+    }else if (i == 0){
+      return 1;
+    } 
+
+  }
+
+  return apareados(s+1);
+
+}
 

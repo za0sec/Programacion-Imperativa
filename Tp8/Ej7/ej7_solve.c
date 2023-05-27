@@ -3,8 +3,8 @@
 #include <assert.h>
 #include <stdlib.h>
 
-#define COLS 20
-#define FILS 20
+#define COLS 25
+#define FILS 25
 
 #define CHUNK 10
 
@@ -36,39 +36,46 @@ void directions(Tdireccion dir, int * i, int * j);
 
 
 int main(void) {
-  char * diccionario[] = {
-    "ANDADOR", "APELAR", "APENAS", "CUELLO", "EGRESAR", "ESBELTO", 
-    "GUIAR", "HABLA", "ISLETA", "LICOR", "PACTO", "PORTERA", 
-    "POSE", "PUERTORRIQUENO", "REALCE", "RIZO", "TALLO", "TENSO", 
-    "UNICO", "UNISONO", ""
-  };
+  
+char * diccionario[] = {
+    "ELECTROCARDIOGRAMA", "INTERNACIONALIZACION", "INCONSTITUCIONALIDAD", "OTORRINOLARINGOLOGIA", "ELECTRODOMESTICOS", 
+    "INCONMENSURABILIDAD", "PARALELEPIPEDO", "INTRANSIGENTE", "DESOXIRRIBONUCLEICO", "IDIOSINCRASICO", 
+    "FILOSOFIA", "JEROGLIFICO", "POLIURETANO", "INSUSTITUIBLE", "ELECTROQUIMICA", "RADIOTRANSMISOR",
+    "ZOOGEOGRAFIA", "PERPENDICULARIDAD", "ANTICONSTITUCIONAL", "NEUROFISIOLOGIA", "MULTIDIMENSIONAL", 
+    "IMPRESCINDIBLE", "INSUPERABLE", ""
+};
    
   char sopa[FILS][COLS] = {
-    {'K', 'A', 'W', 'O', 'S', 'Q', 'C', 'U', 'E', 'L', 'L', 'O', 'L', 'A', 'O', 'H', 'G', 'Q', 'E', 'U'},
-    {'O', 'R', 'F', 'B', 'A', 'A', 'I', 'O', 'Z', 'J', 'C', 'O', 'K', 'S', 'W', 'T', 'B', 'S', 'S', 'O'},
-    {'Y', 'H', 'O', 'O', 'U', 'R', 'T', 'I', 'F', 'X', 'W', 'K', 'L', 'E', 'I', 'Y', 'O', 'E', 'B', 'G'},
-    {'D', 'A', 'A', 'D', 'H', 'N', 'E', 'U', 'N', 'I', 'S', 'O', 'N', 'O', 'X', 'P', 'S', 'D', 'T', 'X'},
-    {'H', 'B', 'K', 'T', 'A', 'U', 'I', 'T', 'A', 'H', 'H', 'H', 'M', 'U', 'F', 'U', 'S', 'R', 'Q', 'O'},
-    {'U', 'L', 'X', 'X', 'T', 'D', 'D', 'C', 'R', 'J', 'E', 'L', 'K', 'E', 'O', 'E', 'G', 'H', 'C', 'L'},
-    {'E', 'A', 'Z', 'K', 'X', 'A', 'N', 'G', 'O', 'O', 'E', 'O', 'X', 'A', 'G', 'R', 'H', 'E', 'I', 'I'},
-    {'D', 'F', 'P', 'D', 'S', 'R', 'O', 'A', 'L', 'A', 'P', 'R', 'D', 'A', 'T', 'T', 'I', 'T', 'D', 'C'},
-    {'R', 'A', 'I', 'U', 'G', 'O', 'W', 'R', 'S', 'A', 'E', 'H', 'K', 'J', 'A', 'O', 'A', 'E', 'E', 'O'},
-    {'Q', 'A', 'T', 'E', 'L', 'S', 'I', 'K', 'P', 'A', 'E', 'E', 'S', 'P', 'P', 'R', 'Z', 'N', 'A', 'R'},
-    {'W', 'I', 'E', 'Z', 'J', 'I', 'N', 'E', 'L', 'Z', 'U', 'Z', 'A', 'X', 'E', 'R', 'X', 'S', 'S', 'W'},
-    {'L', 'X', 'G', 'D', 'V', 'B', 'N', 'C', 'M', 'K', 'U', 'C', 'N', 'N', 'L', 'I', 'F', 'O', 'O', 'A'},
-    {'U', 'H', 'R', 'O', 'S', 'A', 'E', 'Q', 'G', 'H', 'T', 'Y', 'X', 'T', 'A', 'Q', 'I', 'F', 'U', 'R'},
-    {'B', 'E', 'E', 'F', 'S', 'Q', 'Y', 'A', 'G', 'O', 'Y', 'U', 'U', 'R', 'R', 'U', 'W', 'Z', 'I', 'Q'},
-    {'B', 'T', 'S', 'T', 'B', 'A', 'U', 'K', 'U', 'Y', 'R', 'U', 'U', 'X', 'D', 'E', 'Y', 'Z', 'X', 'S'},
-    {'U', 'K', 'A', 'C', 'K', 'W', 'T', 'G', 'O', 'J', 'U', 'R', 'J', 'T', 'Y', 'X', 'O', 'U', 'V', 'A'},
-    {'R', 'X', 'R', 'E', 'Z', 'A', 'A', 'E', 'Y', 'E', 'X', 'I', 'L', 'I', 'I', 'O', 'W', 'V', 'U', 'L'},
-    {'X', 'C', 'U', 'A', 'K', 'M', 'L', 'I', 'E', 'A', 'N', 'X', 'E', 'A', 'Z', 'L', 'O', 'U', 'U', 'N'},
-    {'D', 'P', 'Z', 'A', 'I', 'P', 'L', 'F', 'K', 'T', 'V', 'R', 'C', 'S', 'U', 'M', 'N', 'X', 'Z', 'H'},
-    {'Q', 'F', 'D', 'U', 'J', 'D', 'O', 'L', 'O', 'A', 'K', 'E', 'S', 'B', 'E', 'L', 'T', 'O', 'O', 'Z'}
-};  
+  {'L', 'A', 'N', 'O', 'I', 'C', 'U', 'T', 'I', 'T', 'S', 'N', 'O', 'C', 'I', 'T', 'N', 'A', 'S', 'N', 'P', 'O', 'E', 'L', 'A'},
+  {'Z', 'Z', 'E', 'L', 'T', 'P', 'D', 'Z', 'R', 'K', 'W', 'I', 'O', 'N', 'G', 'S', 'Z', 'M', 'O', 'Y', 'W', 'T', 'T', 'U', 'C'},
+  {'I', 'I', 'N', 'C', 'O', 'N', 'S', 'T', 'I', 'T', 'U', 'C', 'I', 'O', 'N', 'A', 'L', 'I', 'D', 'A', 'D', 'O', 'N', 'J', 'I'},
+  {'W', 'D', 'O', 'N', 'A', 'T', 'E', 'R', 'U', 'I', 'L', 'O', 'P', 'P', 'R', 'C', 'C', 'S', 'P', 'S', 'X', 'R', 'E', 'W', 'M'},
+  {'E', 'I', 'I', 'F', 'I', 'F', 'E', 'A', 'A', 'H', 'X', 'C', 'R', 'O', 'B', 'A', 'V', 'B', 'H', 'A', 'U', 'R', 'G', 'C', 'I'},
+  {'N', 'L', 'E', 'O', 'G', 'N', 'Q', 'A', 'A', 'X', 'X', 'F', 'S', 'Q', 'Z', 'M', 'L', 'G', 'F', 'I', 'O', 'I', 'I', 'P', 'U'},
+  {'M', 'Q', 'B', 'N', 'S', 'B', 'S', 'F', 'L', 'G', 'Q', 'I', 'I', 'I', 'I', 'A', 'M', 'U', 'J', 'G', 'Q', 'N', 'S', 'E', 'Q'},
+  {'B', 'O', 'P', 'I', 'J', 'I', 'M', 'U', 'S', 'E', 'M', 'Z', 'L', 'M', 'N', 'R', 'T', 'X', 'L', 'O', 'E', 'O', 'N', 'R', 'O'},
+  {'P', 'L', 'D', 'M', 'U', 'A', 'N', 'P', 'P', 'S', 'F', 'A', 'E', 'O', 'C', 'G', 'M', 'I', 'H', 'L', 'B', 'L', 'A', 'P', 'R'},
+  {'V', 'R', 'Z', 'E', 'I', 'T', 'F', 'C', 'N', 'E', 'N', 'L', 'I', 'T', 'Y', 'O', 'F', 'R', 'E', 'O', 'G', 'A', 'R', 'E', 'T'},
+  {'B', 'W', 'C', 'P', 'P', 'M', 'I', 'A', 'R', 'O', 'R', 'S', 'O', 'C', 'U', 'I', 'U', 'C', 'S', 'I', 'H', 'R', 'T', 'N', 'C'},
+  {'A', 'C', 'T', 'R', 'B', 'I', 'R', 'T', 'I', 'A', 'N', 'A', 'S', 'J', 'C', 'D', 'T', 'K', 'R', 'S', 'X', 'I', 'N', 'D', 'E'},
+  {'I', 'Y', 'G', 'T', 'F', 'T', 'P', 'C', 'S', 'E', 'S', 'E', 'B', 'O', 'Z', 'R', 'N', 'J', 'S', 'I', 'U', 'N', 'I', 'I', 'L'},
+  {'I', 'W', 'P', 'J', 'O', 'V', 'A', 'E', 'M', 'U', 'B', 'I', 'C', 'L', 'O', 'A', 'F', 'C', 'R', 'F', 'Y', 'G', 'S', 'C', 'E'},
+  {'J', 'O', 'Y', 'I', 'J', 'N', 'O', 'I', 'L', 'L', 'S', 'Q', 'C', 'D', 'E', 'C', 'I', 'D', 'N', 'O', 'F', 'O', 'B', 'U', 'M'},
+  {'N', 'R', 'D', 'O', 'R', 'A', 'D', 'T', 'I', 'E', 'U', 'N', 'O', 'O', 'V', 'O', 'L', 'G', 'U', 'R', 'M', 'L', 'N', 'L', 'J'},
+  {'J', 'A', 'V', 'E', 'P', 'I', 'Q', 'Q', 'B', 'T', 'L', 'M', 'I', 'F', 'S', 'R', 'O', 'Q', 'G', 'U', 'R', 'O', 'Y', 'A', 'B'},
+  {'R', 'R', 'T', 'E', 'T', 'A', 'Z', 'R', 'I', 'D', 'E', 'A', 'Z', 'Q', 'Q', 'T', 'S', 'E', 'V', 'E', 'Z', 'G', 'G', 'R', 'O'},
+  {'B', 'N', 'W', 'L', 'F', 'S', 'Y', 'Q', 'P', 'S', 'X', 'A', 'R', 'O', 'W', 'C', 'O', 'E', 'N', 'N', 'C', 'I', 'F', 'I', 'G'},
+  {'I', 'G', 'U', 'Q', 'W', 'L', 'O', 'F', 'T', 'B', 'B', 'N', 'L', 'A', 'A', 'E', 'F', 'L', 'L', 'F', 'G', 'A', 'N', 'D', 'P'},
+  {'I', 'M', 'P', 'R', 'E', 'S', 'C', 'I', 'N', 'D', 'I', 'B', 'L', 'E', 'P', 'L', 'I', 'M', 'C', 'P', 'Y', 'I', 'A', 'A', 'G'},
+  {'L', 'D', 'B', 'K', 'W', 'I', 'C', 'J', 'K', 'P', 'J', 'F', 'I', 'D', 'F', 'E', 'A', 'E', 'X', 'V', 'T', 'W', 'L', 'D', 'O'},
+  {'L', 'Z', 'G', 'D', 'M', 'O', 'D', 'A', 'D', 'I', 'L', 'I', 'B', 'A', 'R', 'U', 'S', 'N', 'E', 'M', 'N', 'O', 'C', 'N', 'I'},
+  {'S', 'X', 'D', 'E', 'S', 'O', 'X', 'I', 'R', 'R', 'I', 'B', 'O', 'N', 'U', 'C', 'L', 'E', 'I', 'C', 'O', 'K', 'T', 'P', 'V'},
+  {'Z', 'O', 'O', 'G', 'E', 'O', 'G', 'R', 'A', 'F', 'I', 'A', 'X', 'H', 'O', 'N', 'O', 'X', 'O', 'M', 'V', 'C', 'U', 'H', 'M'}
+  };  
 
   struct posicion * res = resolverSopa(diccionario, sopa);
   
-  int expected = 19; 
+  int expected = 23; 
   int count = 0;
   while (res[count].palabra != NULL) {
     printf("Palabra: %s, Fila: %ld, Columna: %ld, Direccion: %d\n",
@@ -180,7 +187,7 @@ int isWord(char mat[][COLS], char * word, int i, int j, Tdireccion * direction) 
   return 0;
 }
 
-//Esta funcion no se hace asi simplemente queria probar otra forma de hacerlo y cuando pregunte me dijeron que habia una manera mas linda de hacerlo.
+//Esta funcion no se hace asi simplemente queria probar otra forma de hacerlo y el chelo me la tiro abajo.
 //Se hace con vector de direcciones.
 //Ahora me da paja cambiarlo.
 void directions(Tdireccion dir, int * i, int * j){

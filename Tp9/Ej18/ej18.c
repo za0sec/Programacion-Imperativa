@@ -47,10 +47,10 @@ int main(void) {
     assert(sumMatch(v6)==0);
     int v7[]={0,-1};
     assert(sumMatch(v7)==0);
-    
-    int w1[]={1,1,2,3,6,4,3,2,9,1,2,3,-1};    
+     
+    int w1[]={1,1,2,3,6,4,3,2,9,1,2,3,-1};
     assert(sumMatch(w1)!=0);
-    int w2[]={1,1,2,4,5,5,14,10,-1};           
+    int w2[]={1,1,2,4,5,5,14,10,-1};
     assert(sumMatch(w2)!=0);
     int w3[]={4,3,-1};
     assert(sumMatch(w3)!=0);
@@ -63,4 +63,19 @@ int main(void) {
     return 0;
 }
 
+int sumMatch(const int v[]){
 
+
+  if (*v == -1)
+    return 0;
+
+  int t = sumMatch(v+1);
+
+  if (t == 0)
+    return *v;
+  if (t < 0)
+    return t - *v;
+
+  return t - *v;
+
+}

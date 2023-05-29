@@ -32,27 +32,17 @@ int main(void) {
 
 
 int apareados(const char * s){
-  
+
   if (*s == '\0')
     return 0;
 
-  if (*s == ')'){
-    return 1;
-  }
+  int i = apareados(s+1);
 
-  if (*s == '('){
+  if (i < 0)
+    return i;
 
-    int i = apareados(s+1);
-  
-    if (i == 1){
-      return 0;
-    }else if (i == 0){
-      return 1;
-    } 
+  int t = (*s == '(' ? -1 : 1); 
 
-  }
-
-  return apareados(s+1);
-
+  return i + t;
 }
 

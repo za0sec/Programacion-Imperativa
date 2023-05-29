@@ -27,7 +27,11 @@ int checkElems(const TList list, const int v[], int dim);
 */
 TList delete(TList list, int del);
 
-
+/*
+** Retorna el i-ésimo elemento de la lista
+** Si la lista tiene menos de i elementos, exit(1) 
+*/
+int get(const TList list, unsigned int i);
 
 
 /*

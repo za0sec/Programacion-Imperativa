@@ -13,6 +13,8 @@ int main(void) {
     l1 = delete(l1, 3);
     printf("Despues de eliminar: ");
     printList(l1);
+    puts("");
+    printf("Tercer elemento de la lista: %d\n\n", get(l1, 2));
     freeList(l1);
 
     int v2 [] = {1, 2, 3, 2, 1};
@@ -23,6 +25,8 @@ int main(void) {
     l2 = delete(l2, 1);
     printf("Despues de eliminar: ");
     printList(l2);
+    puts("");
+    printf("Primer elemento de la lista: %d\n\n", get(l2, 0));
     freeList(l2);
 
     return 0;

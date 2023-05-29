@@ -48,7 +48,7 @@ TList delete(TList list, int del){
 
     free(list);
 
-    return ans;
+    return delete(ans, del);
   }
 
   list->tail = delete(list->tail, del);
@@ -57,3 +57,14 @@ TList delete(TList list, int del){
 
 }
 
+int get(const TList list, unsigned int i){
+
+  if (list == NULL)
+    exit(1);
+
+  if (i == 0)
+    return list->elem;
+  
+  return get(list->tail, i-1);
+
+}

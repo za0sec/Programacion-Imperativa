@@ -43,9 +43,9 @@ int main(void) {
 int bienformado(char * s){
 
   if (*s == '\0')
-    return 0;
+    return 0; 
 
-  int i = bienformado(s+1); 
+  int i = bienformado(s+1);
 
   if (i == 0 && isdigit(*s))
     return (*s - '0');

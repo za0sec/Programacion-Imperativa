@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <assert.h>
 #include "../../libreria/utillist.h"
 
 void printList(TList list);
@@ -42,4 +41,6 @@ void printList(TList list) {
         }
     }
     printf(" ]\n");
+
 }
+

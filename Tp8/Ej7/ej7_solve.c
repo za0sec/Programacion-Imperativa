@@ -44,7 +44,7 @@ char * diccionario[] = {
     "ZOOGEOGRAFIA", "PERPENDICULARIDAD", "ANTICONSTITUCIONAL", "NEUROFISIOLOGIA", "MULTIDIMENSIONAL", 
     "IMPRESCINDIBLE", "INSUPERABLE", ""
 };
-   
+
   char sopa[FILS][COLS] = {
   {'L', 'A', 'N', 'O', 'I', 'C', 'U', 'T', 'I', 'T', 'S', 'N', 'O', 'C', 'I', 'T', 'N', 'A', 'S', 'N', 'P', 'O', 'E', 'L', 'A'},
   {'Z', 'Z', 'E', 'L', 'T', 'P', 'D', 'Z', 'R', 'K', 'W', 'I', 'O', 'N', 'G', 'S', 'Z', 'M', 'O', 'Y', 'W', 'T', 'T', 'U', 'C'},

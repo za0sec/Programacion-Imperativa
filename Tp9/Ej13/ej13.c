@@ -23,7 +23,7 @@ main(void) {
 char * strRchr(char * s, char c){
 
   if (*s == '\0')
-    return 0;
+    return NULL;
 
   char * ret = strRchr(s+1, c);
 

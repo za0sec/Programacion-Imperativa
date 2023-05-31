@@ -4,7 +4,8 @@
 
 #include <stdio.h>
 #include <assert.h>
-#include "utillist.h"
+#include <stdlib.h>
+#include "../../libreria/utillist.h"
 
 TList addAll(TList lista1,  TList lista2);
 
@@ -68,14 +69,40 @@ int main(void) {
 
 TList addAll(TList lista1, TList lista2){
 
-  if (lista1 == NULL)
-    return NULL;
-
   if (lista2 == NULL)
+    return lista1; 
+
+  if (lista1 == NULL){
+    TList aux = malloc(sizeof(TNode));
+    aux->elem = lista2->elem;
+    aux->tail = lista1;
+    return addAll(aux, lista2->tail);
+  }
+    
+  if (lista1->elem > lista2->elem){
+   
+    TList aux = malloc(sizeof(TNode));
+    aux->elem = lista2->elem;
+    aux->tail = lista1;
+    return addAll(aux, lista2->tail);
+  
+  }
+
+  if(lista1->elem < lista2->elem){
+
+    lista1->tail = addAll(lista1->tail, lista2);
     return lista1;
 
-  if (lista1->elem )
+  }
+
+  if(lista1->elem == lista2->elem){
+
+    lista1->tail = addAll(lista1->tail, lista2->tail);
+
+    return lista1;
+  }
 
 
+  return lista1;
 
 }  

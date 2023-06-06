@@ -5,12 +5,14 @@ typedef int elemType;
 
 typedef struct conjCDT * conjADT;
 
+//definicion de la funcion compare
 int f (elemType elem1, elemType elem2);
 
+//Funcion unicamente para el front
 void printConj(conjADT conj);
 
 //Funcion compare...
-conjADT newConj(int (f*)(elemType, elemType));
+conjADT newConj(int (*f)(elemType, elemType));
 
 // agrega un elemento al conjunto. Devuelve 1 si fue exitoso y 0 si no estaba el elemento.
 int addElem(conjADT conj, elemType elem); //
@@ -26,5 +28,8 @@ conjADT interConj(conjADT conj1, conjADT conj2); //
 
 // retorna la diferencia entre dos conjuntos.
 conjADT difference(conjADT conj1, conjADT conj2); //
+
+//Funcion free
+void freeConj(conjADT conj);
 
 #endif //__CONJADT__H

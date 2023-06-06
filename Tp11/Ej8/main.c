@@ -2,8 +2,8 @@
 #include "conjADT.h"
 
 int main() {
-    conjADT conj1 = newConj(compare);
-    conjADT conj2 = newConj(compare);
+    conjADT conj1 = newConj(f);
+    conjADT conj2 = newConj(f);
 
     addElem(conj1, 1);
     addElem(conj1, 2);

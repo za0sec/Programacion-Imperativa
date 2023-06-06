@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+typedef struct node * TList;
 
 typedef struct node{
 
@@ -10,7 +11,6 @@ typedef struct node{
 
 }TNode;
 
-typedef node * TList;
 
 typedef struct conjCDT{
 
@@ -20,7 +20,7 @@ typedef struct conjCDT{
 
 }conjCDT;
 
-static int f (elemType elem1, elemType elem2) {
+int f (elemType elem1, elemType elem2) {
    return elem1 - elem2;
 }
 
@@ -51,7 +51,7 @@ conjADT newConj(int (*f)(elemType, elemType)) {
 }
 
 static TList addElemRec(TList list, elemType elem, size_t *size, int (*f)(elemType, elemType)) {
-    if (list == NULL || f(elem, list2->head->elem) < 0 ){
+    if (list == NULL || f(elem, list->head) < 0 ){
         TList aux = malloc(sizeof(TNode));
         aux->head = elem;
         aux->tail = list;
@@ -92,10 +92,10 @@ static TList deleteElemRec(TList list, elemType elem, int (*f)(elemType, elemTyp
 
 int deleteElem(conjADT conj, elemType elem){
     
-  conj->first = addElemRec(conj->first, elem, conj->f);
+  conj->first = deleteElemRec(conj->first, elem, conj->f);
     
   if (conj->first != NULL){
-    (conj->size)++;
+    (conj->size)--;
     return 1;
   }
 
@@ -180,6 +180,8 @@ conjADT interConj(conjADT conj1, conjADT conj2){
 
   conjOut->first = interRec(conj1->first, conj2->first, &(conjOut->size), conj1->f);
 
+  conjOut->f = conj1->f;
+
   return conjOut;
   
 }
@@ -215,7 +217,23 @@ conjADT difference(conjADT conj1, conjADT conj2){
 
   conjOut->first = differenceRec(conj1->first, conj2->first, &(conjOut->size), conj1->f);
 
+  conjOut->f = conj1->f;
+
   return conjOut;
 
 
+}
+
+void freeConj(conjADT conj) {
+
+    TList actual = conj->first;
+    TList next;
+    
+    while (actual != NULL) {
+        next = actual->tail;
+        free(actual);
+        actual = next;
+    }
+    
+    free(conj);
 }

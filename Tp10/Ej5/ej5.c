@@ -68,23 +68,28 @@ TList restaList(TList lista1, TList lista2){
   if (lista1 == NULL){
     return NULL;
   }
-  
+
+
+
   if (lista2 == NULL){
-    TList aux = malloc(sizeof(TNode));
+  TList aux = malloc(sizeof(TNode));
     aux->elem = lista1->elem;
     aux->tail = restaList(lista1->tail, NULL);
     return aux;
   }
 
-
- if (lista1->elem == lista2->elem){
-    return restaList(lista1->tail, lista2->tail);
-  }else if (lista1->elem > lista2->elem){
-    return restaList(lista1, lista2->tail);
-  }else{
-    TList aux = malloc(sizeof(TNode));
+  if (lista1->elem < lista2->elem){
+  TList aux = malloc(sizeof(TNode));
     aux->elem = lista1->elem;
     aux->tail = restaList(lista1->tail, lista2);
     return aux;
+
+  }else if (lista1->elem > lista2->elem){
+  
+    return restaList(lista1, lista2->tail);
+
+  }else{
+    return restaList(lista1->tail, lista2->tail);
   }
+
 }

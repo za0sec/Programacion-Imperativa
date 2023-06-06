@@ -31,6 +31,13 @@ int main() {
     printf("Diferencia de conjuntos (conj1 - conj2):\n");
     printConj(diffConjunto);
 
+    
+    freeConj(conj1);
+    freeConj(conj2);
+    freeConj(unionConjunto);
+    freeConj(interConjunto);
+    freeConj(diffConjunto);    
+
     return 0;
 }
 

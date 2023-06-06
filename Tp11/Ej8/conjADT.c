@@ -63,7 +63,7 @@ static TList addElemRec(TList list, elemType elem, size_t *size, int (*f)(elemTy
         return list;
     }
 
-    list->tail = addElemRec(list->tail, elem, size);
+    list->tail = addElemRec(list->tail, elem, size, f);
     return list;
 }
 
@@ -85,7 +85,7 @@ static TList deleteElemRec(TList list, elemType elem, int (*f)(elemType, elemTyp
     return aux;
   }
 
-  list->tail = deleteElemRec(list->tail, elem);
+  list->tail = deleteElemRec(list->tail, elem, f);
   return list;
 }
 
@@ -113,19 +113,19 @@ static TList unionRec(TList list1, TList list2, int (*f)(elemType, elemType)){
 
   if (list1 == NULL || f(list1->head, list2->head) > 0){
     aux->head = list2->head;
-    aux->tail = unionRec(list1, list2->tail);
+    aux->tail = unionRec(list1, list2->tail, f);
     return aux;
 
   }
   if (list2 == NULL || f(list1->head, list2->head) < 0){
     aux->head = list1->head;
-    aux->tail = unionRec(list1->tail, list2);
+    aux->tail = unionRec(list1->tail, list2, f);
     return aux;
 
   }
 
   aux->head = list1->head; 
-  aux->tail = unionRec(list1->tail, list2->tail);
+  aux->tail = unionRec(list1->tail, list2->tail, f);
   return aux;
 
 }
@@ -153,19 +153,19 @@ static TList interRec(TList list1, TList list2, size_t * size, int (*f)(elemType
 
     TList aux = malloc(sizeof(TNode));
     (*size)++;
-    aux->elem = list1->elem;
-    aux->tail = interRec(list1->tail, list2->tail, size);
+    aux->head = list1->head;
+    aux->tail = interRec(list1->tail, list2->tail, size, f);
     return aux;
     
   }
 
   if (f(list1->head, list2->head) > 0){
   
-    return interRec(list1, list2->tail, size);
+    return interRec(list1, list2->tail, size, f);
 
   }
 
-  return interRec(list1->tail, list2, size);
+  return interRec(list1->tail, list2, size, f);
 
 }
 
@@ -197,15 +197,15 @@ TList differenceRec(TList list1, TList list2, size_t * size, int (*f)(elemType, 
     TList aux = malloc(sizeof(TNode));
     (*size)++;
     aux->head = list1->head;
-    aux->tail = differenceRec(list1->tail, list2, size);
+    aux->tail = differenceRec(list1->tail, list2, size, f);
     return aux;
   }
 
   if (f(list1->head, list2->head) > 0){
-    return differenceRec(list1, list2->tail, size);
+    return differenceRec(list1, list2->tail, size, f);
   }
 
-  return differenceRec(list1->tail, list2->tail, size);
+  return differenceRec(list1->tail, list2->tail, size, f);
 
 }
 

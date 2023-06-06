@@ -53,6 +53,7 @@ int main(void) {
   return 0;
 }
 
+
 TList listIntersec  (const TList list1, const TList list2){ 
 
   if (list1 == NULL || list2 == NULL)
@@ -68,9 +69,7 @@ TList listIntersec  (const TList list1, const TList list2){
   }else{
     return listIntersec(list1->tail, list2);
   }
-  
+
 }
-
-
 
 

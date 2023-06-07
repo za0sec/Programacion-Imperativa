@@ -1,6 +1,6 @@
 #include "bagADT.h"
 #include <stdlib.h>
-
+#include <stdio.h>
 
 typedef struct node * TList;
 
@@ -8,6 +8,7 @@ typedef struct node{
 
   elemType head;
   struct node * tail;
+  size_t count;
 
 
 }TNode;
@@ -16,37 +17,36 @@ typedef struct bagCDT{
 
   TList first;
   size_t size;
-  int (*compare)(elemType, elemType);
 
 }bagCDT;
 
 
-bagADT newBag( int (*compare)(elemType, elemType) ){
+bagADT newBag(){
 
   bagADT bag = calloc(1, sizeof(bagCDT));
-
-  bag->compare = compare;
 
   return bag;
 }
 
 
-static TList addRec(TList list, elemType elem, size_t * cant, int (*compare)(elemType, elemType)){
+static TList addRec(TList list, elemType elem, size_t * cant){
 
-  if (list == NULL || compare(list->head, elem) > 0){
+  if ( list == NULL || (compare(list->head, elem) > 0 && !(list->count)) ){
 
     TList aux = malloc(sizeof(TNode));
     aux->head = elem;
     aux->tail = list;
+    aux->count = 1;
     return aux;
     
   }
 
   if (!compare(list->head, elem)){
     (*cant)++;
+    (list->count)++;
   }
 
-  list->tail = addRec(list->tail, elem, cant, compare);
+  list->tail = addRec(list->tail, elem, cant);
   return list;
 
 }
@@ -55,23 +55,25 @@ size_t add(bagADT bag, elemType elem){
 
   size_t cant = 1;
 
-  bag->first = addRec(bag->first, elem, &cant, bag->compare);
+  bag->first = addRec(bag->first, elem, &cant);
 
   (bag->size)++;
-
+  
   return cant;
 
 }
 
-void countRec(TList list, elemType elem, size_t * cant, int (*compare)(elemType, elemType)){
+void countRec(TList list, elemType elem, size_t * cant){
 
   int act = compare(list->head, elem);
   
   if (list == NULL || act > 0)
     return;
   
-  if (!act)
-    (*cant)++;
+  if (!act){
+    (*cant) = list->count;
+    return;
+  }
 
   countRec(list->tail, elem, cant);
 }
@@ -80,7 +82,7 @@ size_t count(const bagADT bag, elemType elem){
 
   size_t cant = 0;
 
-  countRec(bag->first, elem, &cant, bag->compare);
+  countRec(bag->first, elem, &cant);
 
   return cant;
 
@@ -92,9 +94,49 @@ size_t size(const bagADT bag){
   
 }
 
+
+TList mostPopRec(TList list){
+
+   if (list->tail == NULL)
+    return list;
+
+  TList ret = mostPopRec(list->tail);
+
+  if ( list->count > ret->count ){
+    ret = list;
+  }
+
+  return ret;
+
+}
+
+
 elemType mostPopular(bagADT bag){
+
+  if (bag->first == NULL){ 
+    fprintf(stderr, "Error: La bolsa no puede estar vacia.\n");
+    exit(1);
+  }
   
-  
+  TList ret = mostPopRec(bag->first);
+
+  return ret->head;
   
 }
 
+
+void freeBag(bagADT bag){
+  
+  TList actual = bag->first;
+  TList next;
+
+  while (actual != NULL){
+    next = actual->tail;  
+    free(actual);
+    actual = next;
+  }
+
+  free(bag);
+
+
+}

@@ -19,7 +19,7 @@ static int compare (elemType e1, elemType e2) {
 void freeBag( bagADT bag);
  
 /* Retorna un nuevo bag de elementos genéricos. Al inicio está vacío */
-bagADT newBag( int (*compare)(elemType, elemType));
+bagADT newBag();
  
 /* Inserta un elemento. Retorna cuántas veces está
 ** elem en el conjunto luego de haberlo insertado (p.e. si es la primera inserción retorna 1).

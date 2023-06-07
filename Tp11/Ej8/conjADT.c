@@ -137,7 +137,7 @@ conjADT unionConj(conjADT conj1, conjADT conj2){
 
   conjOut->first = unionRec(conj1->first, conj2->first, conj1->f);
 
-  conjOut->size = (conj1->size) + (conj2->size);
+  conjOut->size = (conj1->size) + (conj2->size); //Esto esta mal!!
 
   return conjOut;
 

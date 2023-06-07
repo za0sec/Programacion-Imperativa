@@ -31,14 +31,13 @@ bagADT newBag(){
 
 static TList addRec(TList list, elemType elem, size_t * cant){
 
-  if ( list == NULL || (compare(list->head, elem) > 0 && !(list->count)) ){
+  if ( list == NULL || ( !(list->count) && compare(list->head, elem) > 0 ) ){
 
     TList aux = malloc(sizeof(TNode));
     aux->head = elem;
     aux->tail = list;
     aux->count = 1;
     return aux;
-    
   }
 
   if (!compare(list->head, elem)){
@@ -57,7 +56,8 @@ size_t add(bagADT bag, elemType elem){
 
   bag->first = addRec(bag->first, elem, &cant);
 
-  (bag->size)++;
+  if (cant == 1)
+    (bag->size)++;
   
   return cant;
 
@@ -65,12 +65,10 @@ size_t add(bagADT bag, elemType elem){
 
 void countRec(TList list, elemType elem, size_t * cant){
 
-  int act = compare(list->head, elem);
-  
-  if (list == NULL || act > 0)
+  if (list == NULL || compare(list->head, elem) > 0)
     return;
   
-  if (!act){
+  if (!compare(list->head, elem)){
     (*cant) = list->count;
     return;
   }
@@ -140,3 +138,4 @@ void freeBag(bagADT bag){
 
 
 }
+

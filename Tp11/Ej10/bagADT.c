@@ -31,7 +31,9 @@ bagADT newBag(){
 
 static TList addRec(TList list, elemType elem, size_t * cant){
 
-  if ( list == NULL || ( !(list->count) && compare(list->head, elem) > 0 ) ){
+  int c;
+
+  if ( list == NULL || ( !(list->count) && (c = compare(list->head, elem) > 0) ) ){
 
     TList aux = malloc(sizeof(TNode));
     aux->head = elem;

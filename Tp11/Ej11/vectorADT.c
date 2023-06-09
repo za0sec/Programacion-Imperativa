@@ -5,8 +5,8 @@
 
 
 typedef struct element{
-    elemType elem;
-    int used;
+  elemType elem;
+  int used;
 }element;
 
 typedef struct vectorCDT{

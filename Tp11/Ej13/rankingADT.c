@@ -1,8 +1,14 @@
-#include "./rankingADT.h"
+#include "rankingADT.h"
+#include <stdlib.h>
+
 
 #define CHUNK 10
 
-#define SWAP(a, b) ( elemType z = (a); (a) = (b); (b) = (z); )
+#define SWAP(a, b)  {\
+    elemType z = (a);\
+    (a) = (b);\
+    (b) = (z);\
+}
 
 typedef struct rankingCDT{
 
@@ -19,7 +25,8 @@ rankingADT newRanking(elemType elems[], size_t dim, int (*compare)(elemType sour
     rankingADT rank = calloc(1, sizeof(rankingCDT));
     rank->compare = compare;
     if (dim > 0){
-        (rank->vec) = malloc(dim*sizeof(elemType));
+        size_t initialSize = dim + CHUNK - (dim % CHUNK);
+        (rank->vec) = malloc(initialSize*sizeof(elemType));
         for (int i=0; i<dim; i++){
             (rank->vec)[i] = elems[i];
         }
@@ -29,28 +36,17 @@ rankingADT newRanking(elemType elems[], size_t dim, int (*compare)(elemType sour
 
 }
 
-static int belongs(elemType * vec, elemType elem, size_t dim, int (*compare)(elemType, elemType)){
-
-    for (int i=0; i<dim; i++){
-        if (!compare(vec[i], elem))
-            return i;
-    }
-    return 0;
-
-}
-
 void addRanking(rankingADT ranking, elemType elem){
 
-    int idx;
-
-    if ( idx = belongs(rankning->vec, elem, ranking->dim, ranking->compare) && idx > 0){
-        SWAP((ranking->vec)[idx], (ranking->vec)[idx-1]);
+    if (contains(ranking, elem)){
+        return;
     }else{
-        if ( !(dim%CHUNK) ){
-            ranking->vec = realloc( (ranking->dim + CHUNK) * sizeof(elemType) );
+        if ( !(ranking->dim%CHUNK) ){
+            ranking->vec = realloc(ranking->vec, (ranking->dim + CHUNK) * sizeof(elemType) );
         }
 
-        (ranking->vec)[dim++] = elem;
+        (ranking->vec)[(ranking->dim)] = elem;
+        (ranking->dim)++;
 
     }
 
@@ -62,15 +58,63 @@ size_t size(const rankingADT ranking){
 }
 
 
-int getByRanking(rankingADT ranking, size_t n, elemType * elem){
-    
-    if (n < dim && n > 0){
-        (*elem) = (ranking->vec)[n];
-        SWAP((ranking->vec)[n], (ranking->vec)[n-1]);
+int getByRanking(rankingADT ranking, size_t n, elemType *elem)
+{
+    if (contains(ranking, *elem))
+    {
+        (*elem) = ranking->vec[n - 1];
+        if (n > 1)                   
+        {
+            SWAP(ranking->vec[n - 1], ranking->vec[n - 2]);
+        }
         return 1;
     }
-    
-    
-    
+    return 0;
 }
 
+elemType * getTopRanking(const rankingADT ranking, size_t * top){
+
+    if (ranking == NULL){
+        (*top) = 0;
+        return NULL;
+    }
+
+    size_t maxSize = (*top) < ranking->dim ? (*top) : ranking->dim;
+    elemType *ret = malloc(maxSize * sizeof(elemType));
+
+    for (int i = 0; i < maxSize; i++)
+    {
+        ret[i] = ranking->vec[i];
+    }
+
+    return ret;
+}
+
+
+int contains(rankingADT ranking, elemType elem){    
+    
+    for (int i=0; i<ranking->dim; i++){
+        if (!ranking->compare((ranking->vec)[i], elem)){
+            if (i)
+                SWAP((ranking->vec)[i], (ranking->vec)[i-1]);
+           
+            return 1;
+        }
+    }
+    return 0;
+}
+
+void downByRanking(rankingADT ranking, size_t n){
+
+    if (ranking == NULL || n >= ranking->dim)
+        return;
+
+    SWAP((ranking->vec)[n-1], (ranking->vec)[n]);
+
+}
+
+void freeRanking(rankingADT r){
+
+    free(r->vec);
+    free(r);
+}

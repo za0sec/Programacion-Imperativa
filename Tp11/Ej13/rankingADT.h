@@ -1,7 +1,9 @@
 #ifndef __rankingADT_h
 #define __rankingADT_h
 
-typedef _____ elemType;
+#include <stdio.h>
+
+typedef char * elemType;
 
 typedef struct rankingCDT * rankingADT;
 
@@ -44,4 +46,4 @@ void downByRanking(rankingADT ranking, size_t n);
 
 void freeRanking(rankingADT r);
 
-
+#endif //__rankingADT_h

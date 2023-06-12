@@ -1,25 +1,54 @@
-#include "tp11_ej14.h"
+#include "listADT.h"
+#include <assert.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-int compInt(int e1, int e2) {
-   return e1 - e2;
+static int compare (elemType e1, elemType e2) {
+    return e1-e2;
 }
 
 int
 main(void) {
-   listADT c = newList(compInt); // una lista, en este caso de int
+   listADT c = newList(compare); // una lista, en este caso de int
+   toBegin(c);
+   assert(!hasNext(c));
+   assert(!hasNextAsc(c));
    add(c, 3);   add(c, 1);   add(c, 5);   add(c, 2);
-   toBegin(c);         // iterador por orden de inserción
+   toBegin(c);         // iterador por orden de insercià¸£à¸“n
    int n = next(c);    // n = 3
+   assert(n==3);
    n = next(c);        // n = 1
+   assert(n==1);
+  
    toBeginAsc(c);      // iterador por orden ascendente
+
+   assert(hasNext(c));
+   assert(hasNextAsc(c));
+
    n = nextAsc(c);     // n = 1
+   assert(n==1);
+
    n = next(c);        // n = 5
+   assert(n==5);
+
    n = next(c);        // n = 2
-   hasNext(c);         // retorna 0 ( falso )
+   assert(n==2);
+   assert(!hasNext(c)); 
+
    n = nextAsc(c);     // n = 2
-   hasNextAsc(c);      // retorna 1 ( true )
+   assert(n==2);
+
    n = nextAsc(c);     // n = 3
+   assert(n==3);
+
+   n = nextAsc(c);     // n = 5
+   assert(n==5);
+
+   assert(! hasNextAsc(c));
+
+   freeList(c);
+
+   puts("OK!");
+
    return 0;
 }
-
-

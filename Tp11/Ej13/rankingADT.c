@@ -25,8 +25,7 @@ rankingADT newRanking(elemType elems[], size_t dim, int (*compare)(elemType sour
     rankingADT rank = calloc(1, sizeof(rankingCDT));
     rank->compare = compare;
     if (dim > 0){
-        size_t initialSize = dim + CHUNK - (dim % CHUNK);
-        (rank->vec) = malloc(initialSize*sizeof(elemType));
+        (rank->vec) = malloc((dim+CHUNK)*sizeof(elemType));
         for (int i=0; i<dim; i++){
             (rank->vec)[i] = elems[i];
         }

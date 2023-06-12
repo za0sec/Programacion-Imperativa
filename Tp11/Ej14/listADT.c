@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-enum ORDER{NOT, ASC};
-
 typedef struct node * TList;
 
 typedef struct node{
@@ -28,7 +26,7 @@ typedef struct listCDT{
 
 void toBegin(listADT list){
     
-    list->iterator = list->first;
+    list->iteratorNot = list->firstNot;
     
 }
 
@@ -65,7 +63,7 @@ void add(listADT list, elemType elem){
     TList aux = calloc(1, sizeof(TNode));
     aux->elem = elem;
 
-    if (list == NULL){
+    if (list->firstNot == NULL){
         list->firstNot = aux;
     }else{
         list->lastNot->tail = aux;
@@ -79,14 +77,16 @@ void add(listADT list, elemType elem){
 
 int hasNext(listADT list){
 
-   return list->iterator != NULL;
+   return list->iteratorNot != NULL;
 
 }
 
 elemType next(listADT list){
     
     if (hasNext(list)){
-        return list->iterator->elem;
+        elemType element = list->iteratorNot->elem;
+        list->iteratorNot = list->iteratorNot->tail;
+        return element;
     }else {
         fprintf(stderr, "No existe tal elemento!\nAborting...");
         exit(1);
@@ -94,21 +94,36 @@ elemType next(listADT list){
 }
 
 void toBeginAsc(listADT list){
-    toBegin(list);
+    list->iteratorAsc = list->firstAsc;
 }
 
 int hasNextAsc(listADT list){
-    return hasNext(list);
+    return list->iteratorAsc != NULL;
 }
 
 elemType nextAsc(listADT list){
-    return next(list);
+    if (hasNextAsc(list)){
+        elemType element = list->iteratorAsc->elem;
+        list->iteratorAsc = list->iteratorAsc->tail;
+        return element;
+    }else {
+        fprintf(stderr, "No existe tal elemento!\nAborting...");
+        exit(1);
+    }
 }
 
 void freeList(listADT list){
 
-    TList actual = list->first;
+    TList actual = list->firstAsc;
     TList next;
+
+    while(actual != NULL){
+        next = actual->tail;
+        free(actual);
+        actual = next;
+    }
+
+    actual = list->firstNot;
 
     while(actual != NULL){
         next = actual->tail;

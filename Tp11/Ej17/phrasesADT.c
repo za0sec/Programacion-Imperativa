@@ -8,7 +8,7 @@
 typedef struct element{
 
     char * phrase;
-    size_t key;
+    size_t flag;
 
 }element;
 
@@ -26,15 +26,15 @@ typedef struct phrasesCDT{
 
 phrasesADT newPhrasesADT(size_t keyFrom, size_t keyTo){
 
-    if (keyFrom >= keyTo || keyFrom < 0){
+    if (keyFrom > keyTo){
         return NULL;
     }
 
-    size_t dim = ketTo - keyFrom + 1;
+    size_t dim = keyTo - keyFrom + 1;
 
     phrasesADT phrases = malloc(sizeof(phrasesCDT));
 
-    phrases->vec = calloc(dim, sizeof(TNode));
+    phrases->vec = calloc(dim, sizeof(element));
 
     phrases->dim = dim;
 
@@ -67,12 +67,16 @@ static char * stringcpy(const char * s){
 
 int put(phrasesADT ph, size_t key, const char * phrase){
 
-    key = (ph->keyFrom - key + 1);
+    int nkey = (key - ph->keyFrom);
 
-    if ( key >= 0 && key < ph->dim ){
-
-        (ph->vec)[key].phrase = stringcpy(phrase);
-        ph->used++;
+    if ( nkey >= 0 && nkey < ph->dim ){
+        
+        if(!ph->vec[nkey].flag){
+            ph->used++;
+        } 
+        ph->vec[nkey].flag = 1;
+        (ph->vec)[nkey].phrase = stringcpy(phrase);
+        
         return 1;
 
     }
@@ -83,10 +87,10 @@ int put(phrasesADT ph, size_t key, const char * phrase){
 
 char * get(const phrasesADT ph, size_t key){
     
-    key = (ph->keyFrom - key + 1);
+    int nkey = (key - ph->keyFrom);
 
-    if ( key >= 0 && key < ph->dim && ph->vec[key].size > 0){
-        return stringcpy(phrase); 
+    if ( nkey >= 0 && nkey < ph->dim){
+        return stringcpy(ph->vec[nkey].phrase); 
     }
 
     return NULL;
@@ -98,31 +102,66 @@ size_t size(const phrasesADT ph){
     return ph->used;
 }
 
-
-char * concatAll(const phrasesADT ph){
+static char * doConcat(const phrasesADT ph, size_t from, size_t to){
 
     char * ret = NULL;
 
-    if (used){
-        int i, k=0;
-        for (i=0; i<ph->dim; i++){
+    if (ph->used){
+        int i; 
+        long k=0;
+        for (i=from; i<to; i++){
             if (ph->vec[i].phrase != NULL){
                 for(int j=0; ph->vec[i].phrase[j]; j++){
+                    if ( !(k%CHUNK)){
+                        ret = realloc(ret, k+CHUNK);
+                    }
                     ret[k++] = ph->vec[i].phrase[j];
                 }
             }
         }
+    ret = realloc(ret, k+1);
     ret[k] = '\0';
     }
+
+    return ret;
+
+}
+
+
+char * concatAll(const phrasesADT ph){
+
+    size_t start = 0;
+
+    char * ret = doConcat(ph, start, ph->dim);
+    
     return ret;
 }
 
 
 char * concat(const phrasesADT ph, size_t from, size_t to){
     
-    from = ph->keyFrom - from + 1;
-    to = ph->keyFrom - from + 1;
+    int nfrom = from - ph->keyFrom;
+    int nto = to - ph->keyFrom;
+   
+    if (nfrom < 0 || nto < nfrom){
+        return NULL;
+    }
+
+    char * ret = doConcat(ph, nfrom, nto);
     
-    
-    
+    return ret;
 }
+
+
+void freePhrases(phrasesADT ph){
+
+    if (ph != NULL){
+
+        for (int i=0; i<ph->dim; i++){
+            free(ph->vec[i].phrase);
+        }
+    }
+        free(ph->vec);
+        free(ph);
+}
+

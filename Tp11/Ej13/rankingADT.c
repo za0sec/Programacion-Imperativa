@@ -44,8 +44,7 @@ void addRanking(rankingADT ranking, elemType elem){
             ranking->vec = realloc(ranking->vec, (ranking->dim + CHUNK) * sizeof(elemType) );
         }
 
-        (ranking->vec)[(ranking->dim)] = elem;
-        (ranking->dim)++;
+        (ranking->vec)[(ranking->dim)++] = elem;
 
     }
 

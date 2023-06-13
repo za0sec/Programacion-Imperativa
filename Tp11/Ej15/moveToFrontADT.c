@@ -18,16 +18,11 @@ typedef struct moveToFrontCDT{
 
 }moveToFrontCDT;
 
-
-
-
 moveToFrontADT newMoveToFront(){
 
     return calloc(1, sizeof(moveToFrontCDT));
 
 }
-
-    
 
 static int belongsRec(TList list, elemType elem){
 
@@ -41,7 +36,6 @@ static int belongsRec(TList list, elemType elem){
     
     return belongsRec(list->tail, elem);
 } 
-
 
 unsigned int add(moveToFrontADT moveToFront, elemType elem){
 
@@ -67,23 +61,20 @@ unsigned int add(moveToFrontADT moveToFront, elemType elem){
     }
 }
 
-
 unsigned int size(moveToFrontADT moveToFront){
     return moveToFront->size;
 }
-
 
 void toBegin(moveToFrontADT moveToFront){
     moveToFront->iterator = moveToFront->first;
 }
 
-
 int hasNext(moveToFrontADT moveToFront){
-    return moveToFront->iterator != NULL;
+    return moveToFront->iterator->tail != NULL;
 }
 
 elemType next(moveToFrontADT moveToFront){
-   if (hasNext(moveToFront->iterator)){
+   if (hasNext(moveToFront)){
         elemType element = moveToFront->iterator->elem;
         moveToFront->iterator = moveToFront->iterator->tail;
         return element;
@@ -91,8 +82,6 @@ elemType next(moveToFrontADT moveToFront){
 
     exit(1);
 }
-
-
 
 static TList belongsGet(TList list, elemType elem){
 
@@ -105,32 +94,16 @@ static TList belongsGet(TList list, elemType elem){
         free(list);
         return aux;
     }
+
+    if (list->tail == NULL) {
+        return NULL;
+    }
     
     list->tail = belongsGet(list->tail, elem);
 
+
     return list;
 } 
-
-
-
-
-elemType * get(moveToFrontADT moveToFront, elemType elem){
-    
-
-    if (compare(moveToFront->last->elem, elem)){
-        TList aux = belongsGet(moveToFront->first, elem);
-        moveToFront->first->elem = elem;
-        moveToFront->first->tail = aux; 
-    }else{
-        TList aux = malloc(sizeof(TNode));
-        
-        aux->elem = 
-        moveToFront->first->elem = elem;
-        moveToFront->first->tail = moveToFront->first; 
-    }
-
-} 
-
 
 static TList getLast(TList list){
 
@@ -138,10 +111,48 @@ static TList getLast(TList list){
         return NULL;
 
     if(list->tail->tail == NULL){
-        last = list;
-        free(list->tail);
+        return list->tail;
     }
 
     return getLast(list->tail);
 
+}
+
+elemType * get(moveToFrontADT moveToFront, elemType elem){
+   
+    if (belongsRec(moveToFront->first, elem))
+        return NULL;
+
+    if (!compare(moveToFront->first->elem, elem)) {
+        return &(moveToFront->first->elem);
+    }
+
+    TList aux = belongsGet(moveToFront->first, elem);
+
+
+    if (compare(moveToFront->last->elem, elem)){
+        moveToFront->first->elem = elem;
+        moveToFront->first->tail = aux; 
+        return &(moveToFront->first->elem);
+    }
+   
+    moveToFront->last = getLast(moveToFront->first);
+    moveToFront->first->elem = elem;
+    moveToFront->first->tail = aux; 
+    return &(moveToFront->first->elem);
+
+} 
+
+void freeMoveToFront(moveToFrontADT moveToFront){
+
+    TList actual = moveToFront->first;
+    TList next;
+
+    while (actual != NULL){
+        next = actual->tail;
+        free(actual);
+        actual = next;
+    }
+
+    free(moveToFront);
 }

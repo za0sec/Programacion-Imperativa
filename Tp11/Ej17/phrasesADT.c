@@ -67,7 +67,7 @@ static char * stringcpy(const char * s){
 
 int put(phrasesADT ph, size_t key, const char * phrase){
 
-    int nkey = (key - ph->keyFrom);
+    int nkey = ((int)key - (int)ph->keyFrom);
 
     if ( nkey >= 0 && nkey < ph->dim ){
         
@@ -75,6 +75,7 @@ int put(phrasesADT ph, size_t key, const char * phrase){
             ph->used++;
         } 
         ph->vec[nkey].flag = 1;
+        free((ph->vec)[nkey].phrase);
         (ph->vec)[nkey].phrase = stringcpy(phrase);
         
         return 1;

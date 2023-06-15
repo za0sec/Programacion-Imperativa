@@ -1,12 +1,19 @@
 #ifndef __utillist__h
 #define __utillist__h
 
-typedef struct node * TList; 
+/*typedef struct node * TList; 
 
 typedef struct node {
 		int elem;
 		struct node * tail;
-} TNode;
+} TNode;*/
+
+typedef struct node * TList;
+
+typedef struct node {
+    char elem;
+    struct node * tail;
+}TNode;
 
 
 /*

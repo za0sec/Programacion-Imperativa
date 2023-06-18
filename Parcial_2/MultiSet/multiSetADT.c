@@ -206,7 +206,7 @@ static elemType * minElemRec(TList list, int * dim, elemType * aux, int count){
     
     if (list->elem.used < count || count == -1){
         count = list->elem.used;
-        aux = malloc(sizeof(elemType));
+        aux = realloc(aux, sizeof(elemType));
         (*dim) = 1;
         aux[(*dim)-1] = list->elem.value;
     }else if (list->elem.used == count){

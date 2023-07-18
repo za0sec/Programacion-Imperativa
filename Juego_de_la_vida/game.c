@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <time.h>
 
 #define SIZE 50
+#define DIRECTIONS 3
 #define ALIVE '#'
 #define DEAD ' '
 
@@ -43,7 +43,7 @@ void initialize(char world[][SIZE]){
         }
     }
 
-    // Agregamos un R-pentomino en el centro
+    // Aca se ingresa la configuracion inicial!
     int mid = SIZE / 2;
     world[mid-1][mid] = ALIVE;
     world[mid][mid-1] = ALIVE;
@@ -54,7 +54,7 @@ void initialize(char world[][SIZE]){
 
 
 void print_world(char world[][SIZE]) {
-    printf("\033[2J");  // borra la pantalla del terminal
+    printf("\033[2J");  // borra la pantalla de la terminal
     printf("\033[H");  // mueve el cursor a la esquina superior izquierda
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
@@ -94,7 +94,7 @@ void next_gen(char world[][SIZE]){
         }
     }
 
-    // luego, copia new_world en world
+ 
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
             world[i][j] = new_world[i][j];
@@ -106,33 +106,38 @@ void next_gen(char world[][SIZE]){
 
 int check(char world[][SIZE], int row, int col, int situation) {
 
-    int pos[3] = {-1, 0, 1};
+    int pos[DIRECTIONS] = {-1, 0, 1};
+
+    int ret;
 
     int count = 0;
 
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 3; j++) {
-            if (i == 1 && j == 1) continue; // skip the cell itself
-            int ni = row + pos[i];
-            int nj = col + pos[j];
-            if (ni >= 0 && nj >= 0 && ni < SIZE && nj < SIZE && world[ni][nj] == ALIVE) {
-                count++;
+    for (int i = 0; i < DIRECTIONS; i++) {
+        for (int j = 0; j < DIRECTIONS; j++) {
+            if ( !(i == 1 && j == 1) ){
+                int ni = row + pos[i];
+                int nj = col + pos[j];
+                if (ni >= 0 && nj >= 0 && ni < SIZE && nj < SIZE && world[ni][nj] == ALIVE) {
+                    count++;
+                }
             }
         }
     }
 
-    if (situation) { // if the cell is alive
+    if (situation) {
         if (count == 2 || count == 3) {
-            return 1; // the cell stays alive
+            ret = 1;
         } else {
-            return 0; // the cell dies
+            ret = 0;
         }
-    } else { // if the cell is dead
+    } else {
         if (count == 3) {
-            return 1; // the cell becomes alive
+            ret = 1;
         } else {
-            return 0; // the cell stays dead
+            ret = 0;
         }
     }
+
+    return ret;
 }
 

@@ -7,8 +7,8 @@ La catedra tambien da resoluciones a ejercicios mejor explicados que los mios pe
 
 ## DISCLAIMER
 
-El 90% de los ejercicios estan bien/perfectos. Digo ese porcentaje porque mediante las consultas pregunte casi todos los ejs. Los ejercicios que pueden estar mal son los escritos dentro de los docs (osea los teoricos). 
-Hay que tener en cuenta que estos ejercicios los fui haciendo durante la cursada, por lo tanto, se nota un incremento tanto de estilo como de eficiencia. A partir de la guia 6 (incluida), todos los ejercicios deberian tener buen estilo y buena eficiencia.
+Hay que tener en cuenta que estos ejercicios los fui haciendo durante la cursada, por lo tanto, se nota un incremento tanto de estilo como de eficiencia. Si bien los ejercicios previos al Tp5 funcionan, se pueden ver errores comunes de ese momento. A partir del Tp5 (incluida), todos los ejercicios deberian tener buen estilo y buena eficiencia.
+El 85% de los ejercicios estan bien/perfectos. Digo ese porcentaje porque mediante las consultas pregunte casi todos los ejs. Los ejercicios que pueden estar mal son los escritos dentro de los docs (osea los teoricos).
 Consejo: Hagan todos los ejercicios sin ver las respuestas (Mejores son las respuestas dadas por la catedra pero aca pueden ver un enfoque diferente).
 
 ## Como descargo los ejercicios?

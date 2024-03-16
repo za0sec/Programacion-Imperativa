@@ -125,19 +125,12 @@ int check(char world[][SIZE], int row, int col, int situation) {
     }
 
     if (situation) {
-        if (count == 2 || count == 3) {
-            ret = 1;
-        } else {
-            ret = 0;
-        }
+        ret = (count == 2 || count == 3);
     } else {
-        if (count == 3) {
-            ret = 1;
-        } else {
-            ret = 0;
-        }
+        ret = (count == 3);
     }
 
-    return ret;
+  return ret;
+
 }
 
